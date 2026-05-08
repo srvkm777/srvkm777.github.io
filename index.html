@@ -26,7 +26,6 @@
       align-items: center;
     }
 
-    /* GRID */
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -48,7 +47,6 @@
       font-size: 24px;
     }
 
-    /* ACTION CARDS */
     .action-card {
       display: flex;
       justify-content: space-between;
@@ -60,9 +58,7 @@
       cursor: pointer;
     }
 
-    body.dark .action-card {
-      background: #1e1e1e;
-    }
+    body.dark .action-card { background: #1e1e1e; }
 
     .action-left {
       display: flex;
@@ -80,17 +76,41 @@
       flex-direction: column;
     }
 
-    .action-name {
-      font-weight: bold;
-    }
+    .action-name { font-weight: bold; }
 
     .action-desc {
       font-size: 12px;
       color: gray;
     }
 
-    .icon {
-      font-size: 20px;
+    .icon { font-size: 20px; }
+
+    /* ✅ Bottom nav */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      background: white;
+      padding: 8px 0;
+      border-top: 1px solid #ddd;
+    }
+
+    body.dark .bottom-bar {
+      background: #1e1e1e;
+      border-top: 1px solid #333;
+    }
+
+    .bottom-bar div {
+      text-align: center;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .bottom-bar span {
+      display: block;
+      font-size: 10px;
     }
 
   </style>
@@ -117,7 +137,6 @@
   <div class="card" onclick="sendDirections()"><span>📍</span>Share</div>
 </div>
 
-<!-- SERVICES -->
 <h2>📢 Society Services</h2>
 
 <!-- ✅ OhhPro -->
@@ -138,7 +157,7 @@
     <span>💬</span>
     <div class="action-info">
       <span class="action-name">Open WhatsApp</span>
-      <span class="action-desc">Go to society group</span>
+      <span class="action-desc">Open society group</span>
     </div>
   </div>
   <div class="icon">📱</div>
@@ -172,16 +191,17 @@ navigator.geolocation.getCurrentPosition(
         areaName = data.address.suburb || data.address.city || "your area";
         document.getElementById("status").innerText = "📍 " + areaName;
       });
-  },
-  () => {
-    document.getElementById("status").innerText = "Enable location";
   }
 );
 
-/* ✅ APP OPEN (FIXED) */
+/* SEARCH */
+function searchPlaces(type) {
+  window.open(`https://www.google.com/maps/search/${type}+near+${areaName}`);
+}
+
+/* ✅ FIXED APP OPEN (BOTTOM NAV WORKING NOW) */
 function openApp(type) {
-  let scheme = "";
-  let fallback = "";
+  let scheme = "", fallback = "";
 
   if (type === "uber") {
     scheme = "uber://";
@@ -203,21 +223,16 @@ function openApp(type) {
     fallback = "https://www.bigbasket.com";
   }
 
-/* SEARCH */
-function searchPlaces(type) {
-  window.open(`https://www.google.com/maps/search/${type}+near+${areaName}`);
+  window.location.href = scheme;
+
+  setTimeout(() => {
+    window.location.href = fallback;
+  }, 1200);
 }
 
-/* SHARE */
-function sendDirections() {
-  const link = `https://www.google.com/maps?q=${latitude},${longitude}`;
-  navigator.clipboard.writeText(link);
-  alert("Location copied!");
-}
-
-/* ✅ OHHPRO */
+/* ✅ OHHPRO (FIXED WITH YOUR iOS LINK) */
 function openOhhPro() {
-  const ua = navigator.userAgent || navigator.vendor || window.opera;
+  const ua = navigator.userAgent;
 
   if (/android/i.test(ua)) {
     window.location.href = "intent://#Intent;package=com.ohhpro.junction;end";
@@ -229,17 +244,19 @@ function openOhhPro() {
 
   } else if (/iPhone|iPad|iPod/i.test(ua)) {
     window.location.href =
-      "https://apps.apple.com/in/app/ohhpro-junction/idXXXXXXXX";
-
-  } else {
-    window.location.href = "https://ohhpro.com";
+      "https://apps.apple.com/se/app/ohhpro-junction/id1596785670?l=en-GB";
   }
 }
 
-/* ✅ WHATSAPP */
+/* ✅ WHATSAPP (FIXED FOR BOTH) */
 function openWhatsApp() {
-  window.location.href =
-    "intent://send/#Intent;scheme=whatsapp;package=com.whatsapp;end;";
+  const ua = navigator.userAgent;
+
+  if (/android/i.test(ua)) {
+    window.location.href = "intent://send/#Intent;scheme=whatsapp;package=com.whatsapp;end;";
+  } else {
+    window.location.href = "https://wa.me/";
+  }
 }
 
 /* ✅ SUGGEST */
@@ -247,12 +264,20 @@ function openSuggestion() {
   window.open("https://forms.gle/YOUR_FORM_LINK");
 }
 
-/* ✅ DARK MODE */
+/* SHARE */
+function sendDirections() {
+  const link = `https://www.google.com/maps?q=${latitude},${longitude}`;
+  navigator.clipboard.writeText(link);
+  alert("Location copied!");
+}
+
+/* DARK MODE */
 function toggleDark() {
   document.body.classList.toggle("dark");
 }
 
 </script>
+
 <!-- ✅ BOTTOM NAV -->
 <div class="bottom-bar">
   <div onclick="openApp('uber')">🚕<span>Uber</span></div>
@@ -262,5 +287,6 @@ function toggleDark() {
   <div onclick="openApp('blinkit')">🛒<span>Blinkit</span></div>
   <div onclick="openApp('bigbasket')">🧺<span>BB</span></div>
 </div>
+
 </body>
 </html>
