@@ -17,12 +17,7 @@
       padding-bottom: 80px;
     }
 
-    body.dark {
-      background: #121212;
-      color: white;
-    }
-
-    /* ✅ HEADER */
+    /* HEADER */
     .header {
       position: sticky;
       top: 0;
@@ -53,7 +48,7 @@
       font-weight: 700;
     }
 
-    /* ✅ GRID */
+    /* GRID */
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -69,7 +64,6 @@
       cursor: pointer;
     }
 
-    .card:active { transform: scale(0.95); }
     .card span { font-size: 22px; }
     .card small { display:block; margin-top:6px; }
 
@@ -78,7 +72,7 @@
       color: var(--green);
     }
 
-    /* ✅ ACTION */
+    /* ACTION CARDS */
     .action-card {
       margin: 10px;
       padding: 14px;
@@ -101,10 +95,7 @@
       height: 30px;
     }
 
-    .action-name { font-weight:600; }
-    .action-desc { font-size:12px; color:gray; }
-
-    /* ✅ NAV */
+    /* BOTTOM NAV */
     .bottom-bar {
       position: fixed;
       bottom: 0;
@@ -131,56 +122,56 @@
 
 <body>
 
-<!-- ✅ HEADER -->
+<!-- HEADER -->
 <div class="header">
   <div class="logo-wrap">
     <img src="utkalgreenexlogi.png" class="logo">
-    <div class="title">Utkal Greenex</div>
+    <div class="title">Utkal Greenex Directory</div>
   </div>
   <button onclick="toggleDark()">🌙</button>
 </div>
 
-<!-- ✅ STATIC LOCATION -->
-<p id="status" style="padding:10px;">
-  📍 Utkal Greenex,Sunderpada,Bhubaneswar
+<!-- STATIC LOCATION -->
+<p style="padding:10px;">
+📍 Utkal Greenex,Sunderpada,Bhubaneswar
 </p>
 
-<!-- ✅ FULL SEARCH GRID (RESTORED + EXPANDED ✅) -->
+<!-- SEARCH GRID -->
 <div class="grid">
   <div class="card" onclick="searchPlaces('hospital')">🏥<small>Hospital</small></div>
   <div class="card" onclick="searchPlaces('pharmacy')">💊<small>Pharmacy</small></div>
   <div class="card" onclick="searchPlaces('supermarket')">🛒<small>Grocery</small></div>
-  <div class="card" onclick="searchPlaces('stationery')">📚<small>Stationery</small></div>
   <div class="card" onclick="searchPlaces('atm')">🏧<small>ATM</small></div>
   <div class="card" onclick="searchPlaces('bank')">₹<small>Bank</small></div>
-  <div class="card" onclick="searchPlaces('24 hour pharmacy')">🌙<small>24x7</small></div>
+  <div class="card" onclick="searchPlaces('restaurant')">🍽<small>Food</small></div>
+  <div class="card" onclick="searchPlaces('vegetable market')">🥦<small>Veg</small></div>
   <div class="card" onclick="searchPlaces('chicken shop')">🍗<small>Meat</small></div>
-  <div class="card" onclick="searchPlaces('vegetable market')">🥦<small>Vegetables</small></div>
+  <div class="card" onclick="openLocation()">📍<small>Directions</small></div>
 </div>
 
-<!-- ✅ SERVICES -->
+<!-- SERVICES -->
 <h2>📢 Society Services</h2>
 
 <div class="action-card" onclick="openOhhPro()">
   <div class="action-left">
     <img src="ohhpro.png" class="small-logo">
-    <div>
-      <div class="action-name">OhhPro Junction</div>
-      <div class="action-desc">Complaints & emergencies</div>
-    </div>
+    <div>OhhPro Junction</div>
   </div>
 </div>
 
 <div class="action-card" onclick="openWhatsApp()">
   <div class="action-left">
-    💬
-    <div>
-      <div class="action-name">WhatsApp Group</div>
-    </div>
+    💬 WhatsApp Group
   </div>
 </div>
 
-<!-- ✅ DOCUMENTS -->
+<div class="action-card" onclick="openSuggestion()">
+  <div class="action-left">
+    💡 Suggest Improvement
+  </div>
+</div>
+
+<!-- DOCUMENTS -->
 <h2>📄 Documents</h2>
 
 <div class="grid">
@@ -191,13 +182,19 @@
 
 <script>
 
-/* ✅ SEARCH (STATIC LOCATION) */
+/* ✅ BETTER MAP SEARCH (MULTIPLE RESULTS) */
 function searchPlaces(type){
-  const query = `${type} near Utkal Greenex Sunderpada Bhubaneswar`;
-  window.open(`https://www.google.com/maps/search/${encodeURIComponent(query)}`);
+  const lat = 20.2469;
+  const lon = 85.8189;
+  window.open(`https://www.google.com/maps/search/${type}/@${lat},${lon},15z`);
 }
 
-/* ✅ OPEN PDF */
+/* ✅ OPEN LOCATION */
+function openLocation(){
+  window.open("https://maps.app.goo.gl/urxJ4ayd5iEdCkiS9");
+}
+
+/* ✅ OPEN DOC */
 function openDoc(path){
   window.open(path, "_blank");
 }
@@ -207,6 +204,9 @@ function openApp(type){
   const map={
     uber:["uber://","https://m.uber.com"],
     ola:["olacabs://","https://book.olacabs.com"],
+    swiggy:["swiggy://","https://www.swiggy.com"],
+    zomato:["zomato://","https://www.zomato.com"],
+    blinkit:["blinkit://","https://blinkit.com"],
     ohhpro:["ohhpro://","https://apps.apple.com/se/app/ohhpro-junction/id1596785670"]
   };
 
@@ -225,7 +225,15 @@ function openApp(type){
 }
 
 function openOhhPro(){openApp("ohhpro");}
-function openWhatsApp(){window.location.href="https://wa.me/";}
+
+function openWhatsApp(){
+  window.location.href="https://wa.me/";
+}
+
+/* ✅ SUGGESTION FUNCTION (ADDED BACK ✅) */
+function openSuggestion() {
+  window.open("https://docs.google.com/forms/d/e/1FAIpQLSeTnjEctE_DHkD5IZjsq7ukjiwVuckEDHlOizHf9352blUzSg/viewform?usp=publish-editor");
+}
 
 function toggleDark(){
   document.body.classList.toggle("dark");
@@ -233,11 +241,13 @@ function toggleDark(){
 
 </script>
 
-<!-- ✅ NAV -->
+<!-- ✅ FULL APP NAV RESTORED -->
 <div class="bottom-bar">
   <div onclick="openApp('uber')">🚕<span>Uber</span></div>
   <div onclick="openApp('ola')">🚗<span>Ola</span></div>
-  <div onclick="openApp('ohhpro')">🏢<span>OhhPro</span></div>
+  <div onclick="openApp('swiggy')">🍔<span>Swiggy</span></div>
+  <div onclick="openApp('zomato')">🍕<span>Zomato</span></div>
+  <div onclick="openApp('blinkit')">🛒<span>Blinkit</span></div>
 </div>
 
 </body>
