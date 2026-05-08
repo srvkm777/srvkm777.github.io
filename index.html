@@ -64,6 +64,17 @@
       background: #1e1e1e;
     }
 
+    .action-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo {
+      width: 28px;
+      height: 28px;
+    }
+
     .action-info {
       display: flex;
       flex-direction: column;
@@ -80,17 +91,6 @@
 
     .icon {
       font-size: 20px;
-    }
-
-    .logo {
-      width: 28px;
-      height: 28px;
-      margin-right: 10px;
-    }
-
-    .action-left {
-      display: flex;
-      align-items: center;
     }
 
   </style>
@@ -117,13 +117,13 @@
   <div class="card" onclick="sendDirections()"><span>📍</span>Share</div>
 </div>
 
-<!-- ✅ SOCIETY SERVICES -->
+<!-- SERVICES -->
 <h2>📢 Society Services</h2>
 
-<!-- ✅ OhhPro Junction -->
+<!-- ✅ OhhPro -->
 <div class="action-card" onclick="openOhhPro()">
   <div class="action-left">
-    <img class="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA7CAYAAAAn+enKAAA..." />
+    <img src="ohhpro.png" class="logo">
     <div class="action-info">
       <span class="action-name">OhhPro Junction</span>
       <span class="action-desc">Complaints, requests & emergencies</span>
@@ -132,10 +132,10 @@
   <div class="icon">➡️</div>
 </div>
 
-<!-- WhatsApp -->
+<!-- ✅ WhatsApp -->
 <div class="action-card" onclick="openWhatsApp()">
   <div class="action-left">
-    <span style="margin-right:10px;">💬</span>
+    <span>💬</span>
     <div class="action-info">
       <span class="action-name">Open WhatsApp</span>
       <span class="action-desc">Go to society group</span>
@@ -144,13 +144,13 @@
   <div class="icon">📱</div>
 </div>
 
-<!-- Suggest -->
+<!-- ✅ Suggest -->
 <div class="action-card" onclick="openSuggestion()">
   <div class="action-left">
-    <span style="margin-right:10px;">💡</span>
+    <span>💡</span>
     <div class="action-info">
       <span class="action-name">Suggest Improvement</span>
-      <span class="action-desc">Give feedback for this page</span>
+      <span class="action-desc">Send feedback</span>
     </div>
   </div>
   <div class="icon">✉️</div>
@@ -192,19 +192,32 @@ function sendDirections() {
 
 /* ✅ OHHPRO */
 function openOhhPro() {
-  window.location.href = "intent://#Intent;package=com.ohhpro.junction;end";
+  const ua = navigator.userAgent || navigator.vendor || window.opera;
 
-  setTimeout(() => {
-    window.location.href = "https://play.google.com/store";
-  }, 1200);
+  if (/android/i.test(ua)) {
+    window.location.href = "intent://#Intent;package=com.ohhpro.junction;end";
+
+    setTimeout(() => {
+      window.location.href =
+        "https://play.google.com/store/apps/details?id=com.ohhpro.junction";
+    }, 1200);
+
+  } else if (/iPhone|iPad|iPod/i.test(ua)) {
+    window.location.href =
+      "https://apps.apple.com/in/app/ohhpro-junction/idXXXXXXXX";
+
+  } else {
+    window.location.href = "https://ohhpro.com";
+  }
 }
 
 /* ✅ WHATSAPP */
 function openWhatsApp() {
-  window.location.href = "intent://send/#Intent;scheme=whatsapp;package=com.whatsapp;end;";
+  window.location.href =
+    "intent://send/#Intent;scheme=whatsapp;package=com.whatsapp;end;";
 }
 
-/* ✅ SUGGEST (Google Form) */
+/* ✅ SUGGEST */
 function openSuggestion() {
   window.open("https://forms.gle/YOUR_FORM_LINK");
 }
