@@ -5,7 +5,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- ✅ PWA -->
+  <!-- PWA -->
   #manifest.json
 
   <style>
@@ -26,21 +26,12 @@
     h2 { margin-top: 15px; }
     h3 { margin: 15px 0 5px; }
 
-    /* ✅ TOP */
     .topbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    button {
-      padding: 6px 10px;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-    }
-
-    /* ✅ GRID */
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -64,7 +55,7 @@
       font-size: 24px;
     }
 
-    /* ✅ CONTACTS */
+    /* CONTACTS */
     .contact-card {
       display: flex;
       justify-content: space-between;
@@ -95,7 +86,7 @@
       text-decoration: none;
     }
 
-    /* ✅ BOTTOM NAV */
+    /* BOTTOM NAV */
     .bottom-bar {
       position: fixed;
       bottom: 0;
@@ -137,7 +128,7 @@
 
 <p id="status">Detecting location...</p>
 
-<!-- ✅ GRID -->
+<!-- GRID -->
 <div class="grid">
   <div class="card" onclick="searchPlaces('hospital')"><span>🏥</span>Hospital</div>
   <div class="card" onclick="searchPlaces('pharmacy')"><span>💊</span>Pharmacy</div>
@@ -145,19 +136,19 @@
   <div class="card" onclick="searchPlaces('stationery')"><span>📚</span>Stationery</div>
   <div class="card" onclick="searchPlaces('atm')"><span>🏧</span>ATM</div>
   <div class="card" onclick="searchPlaces('24 hour pharmacy')"><span>🌙</span>24x7</div>
-  <div class="card" onclick="openApp('https://www.swiggy.com')"><span>🍔</span>Swiggy</div>
-  <div class="card" onclick="openApp('https://www.zomato.com')"><span>🍕</span>Zomato</div>
+  <div class="card" onclick="openApp('swiggy')"><span>🍔</span>Swiggy</div>
+  <div class="card" onclick="openApp('zomato')"><span>🍕</span>Zomato</div>
   <div class="card" onclick="sendDirections()"><span>📍</span>Share Loc</div>
 </div>
 
-<!-- ✅ CONTACTS -->
+<!-- CONTACTS -->
 <h2>📞 Important Contacts</h2>
 <div id="contacts"></div>
 
 <script>
 let latitude, longitude, areaName = "";
 
-/* ✅ CONTACTS */
+/* CONTACT DATA */
 const contacts = [
   {
     category: "🚨 Emergency",
@@ -176,18 +167,10 @@ const contacts = [
       { name: "Maintenance", phone: "919900000002" },
       { name: "Housekeeping", phone: "919900000003" }
     ]
-  },
-  {
-    category: "🛠 Services",
-    color: "#28a745",
-    items: [
-      { name: "Electrician", phone: "919900000004" },
-      { name: "Plumber", phone: "919900000005" }
-    ]
   }
 ];
 
-/* ✅ LOAD CONTACTS */
+/* LOAD CONTACTS */
 function loadContacts() {
   const el = document.getElementById("contacts");
   el.innerHTML = "";
@@ -202,14 +185,14 @@ function loadContacts() {
             <span class="contact-name">${c.name}</span>
             <span class="contact-phone">${c.phone}</span>
           </div>
-          tel:${c.phone}Call</a>
+          <a class="call📞 Call</a>
         </div>
       `;
     });
   });
 }
 
-/* ✅ LOCATION */
+/* LOCATION */
 navigator.geolocation.getCurrentPosition(
   pos => {
     latitude = pos.coords.latitude;
@@ -230,25 +213,52 @@ function getAreaName() {
     });
 }
 
-/* ✅ SEARCH */
+/* SEARCH */
 function searchPlaces(type) {
   const url = `https://www.google.com/maps/search/${type}+near+${areaName}`;
   window.open(url);
 }
 
-/* ✅ OPEN APPS */
-function openApp(url) {
-  window.open(url);
+/* ✅ APP OPEN (FIXED) */
+function openApp(type) {
+  let scheme = "";
+  let fallback = "";
+
+  if (type === "uber") {
+    scheme = "uber://";
+    fallback = "https://m.uber.com";
+  } else if (type === "ola") {
+    scheme = "olacabs://";
+    fallback = "https://book.olacabs.com";
+  } else if (type === "swiggy") {
+    scheme = "swiggy://";
+    fallback = "https://www.swiggy.com";
+  } else if (type === "zomato") {
+    scheme = "zomato://";
+    fallback = "https://www.zomato.com";
+  } else if (type === "blinkit") {
+    scheme = "blinkit://";
+    fallback = "https://blinkit.com";
+  } else if (type === "bigbasket") {
+    scheme = "bbnow://";
+    fallback = "https://www.bigbasket.com";
+  }
+
+  window.location.href = scheme;
+
+  setTimeout(() => {
+    window.location.href = fallback;
+  }, 1200);
 }
 
-/* ✅ LOCATION SHARE */
+/* SHARE LOCATION */
 function sendDirections() {
   const link = `https://www.google.com/maps?q=${latitude},${longitude}`;
   navigator.clipboard.writeText(link);
   alert("Location copied!");
 }
 
-/* ✅ DARK MODE */
+/* DARK MODE */
 function toggleDark() {
   document.body.classList.toggle("dark");
   localStorage.setItem("dark", document.body.classList.contains("dark"));
@@ -258,23 +268,23 @@ if (localStorage.getItem("dark") === "true") {
   document.body.classList.add("dark");
 }
 
-/* ✅ INIT */
+/* INIT */
 loadContacts();
 
-/* ✅ PWA */
+/* PWA */
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js');
 }
 </script>
 
-<!-- ✅ BOTTOM NAV BAR -->
+<!-- ✅ BOTTOM NAV -->
 <div class="bottom-bar">
-  <div onclick="openApp('https://m.uber.com')">🚕<span>Uber</span></div>
-  <div onclick="openApp('https://book.olacabs.com')">🚗<span>Ola</span></div>
-  <div onclick="openApp('https://www.swiggy.com')">🍔<span>Swiggy</span></div>
-  <div onclick="openApp('https://www.zomato.com')">🍕<span>Zomato</span></div>
-  <div onclick="openApp('https://blinkit.com')">🛒<span>Blinkit</span></div>
-  <div onclick="openApp('https://www.bigbasket.com')">🧺<span>BB</span></div>
+  <div onclick="openApp('uber')">🚕<span>Uber</span></div>
+  <div onclick="openApp('ola')">🚗<span>Ola</span></div>
+  <div onclick="openApp('swiggy')">🍔<span>Swiggy</span></div>
+  <div onclick="openApp('zomato')">🍕<span>Zomato</span></div>
+  <div onclick="openApp('blinkit')">🛒<span>Blinkit</span></div>
+  <div onclick="openApp('bigbasket')">🧺<span>BB</span></div>
 </div>
 
 </body>
