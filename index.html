@@ -34,19 +34,34 @@ let latitude, longitude;
 const status = document.getElementById("status");
 const resultsDiv = document.getElementById("results");
 
-// ✅ Get user location
+// ✅ Get location
 navigator.geolocation.getCurrentPosition(
   (pos) => {
     latitude = pos.coords.latitude;
     longitude = pos.coords.longitude;
-    status.innerText = "Location detected ✅ Choose a category above";
+    status.innerText = "✅ Location detected. Choose a category.";
   },
   () => {
-    status.innerText = "❌ Location access denied. Cannot fetch nearby places.";
+    status.innerText = "❌ Please allow location access.";
   }
 );
 
-// ✅ Search function using OpenStreetMap (Nominatim)
+// ✅ Distance function (KM)
+function getDistance(lat1, lon1, lat2, lon2) {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * Math.PI / 180) *
+    Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+// ✅ Search nearby places (FIXED)
 function searchPlaces(type) {
   if (!latitude || !longitude) {
     alert("Wait for location detection first");
@@ -55,7 +70,14 @@ function searchPlaces(type) {
 
   status.innerText = "Searching nearby " + type + "...";
 
-  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${type}&limit=10&lat=${latitude}&lon=${longitude}`;
+  // ✅ restrict area (~5km)
+  const delta = 0.05;
+  const left = longitude - delta;
+  const right = longitude + delta;
+  const top = latitude + delta;
+  const bottom = latitude - delta;
+
+  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${type}&limit=15&viewbox=${left},${top},${right},${bottom}&bounded=1`;
 
   fetch(url)
     .then(res => res.json())
@@ -63,21 +85,32 @@ function searchPlaces(type) {
       resultsDiv.innerHTML = "";
 
       if (data.length === 0) {
-        resultsDiv.innerHTML = "No results found.";
+        resultsDiv.innerHTML = "No nearby results found.";
         return;
       }
 
+      // ✅ sort by distance
+      data.sort((a, b) => {
+        const d1 = getDistance(latitude, longitude, a.lat, a.lon);
+        const d2 = getDistance(latitude, longitude, b.lat, b.lon);
+        return d1 - d2;
+      });
+
       data.forEach(place => {
+        const dist = getDistance(latitude, longitude, place.lat, place.lon).toFixed(2);
+
         resultsDiv.innerHTML += `
           <div class="card">
             <b>${place.display_name}</b><br>
-            🌍 Lat: ${place.lat}, Lon: ${place.lon}<br>
-            <a href="https://www.google.com/mapse.lat},${place.lon}📍 Open in Maps</a>
+            📏 ${dist} km away<br>
+            <a href="https://www.google.com/maps?q=${},${place.lon}
+              📍 Open in Maps
+            </a>
           </div>
         `;
       });
 
-      status.innerText = `Showing ${type} near you`;
+      status.innerText = `✅ Showing nearby ${type}`;
     });
 }
 </script>
