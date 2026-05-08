@@ -26,7 +26,6 @@
     .header {
       position: sticky;
       top: 0;
-      z-index: 100;
       padding: 16px;
       display: flex;
       justify-content: space-between;
@@ -71,7 +70,6 @@
     }
 
     .card:active { transform: scale(0.95); }
-
     .card span { font-size: 22px; }
     .card small { display:block; margin-top:6px; }
 
@@ -142,14 +140,22 @@
   <button onclick="toggleDark()">🌙</button>
 </div>
 
-<p id="status" style="padding:10px;">Detecting location...</p>
+<!-- ✅ STATIC LOCATION -->
+<p id="status" style="padding:10px;">
+  📍 Utkal Greenex,Sunderpada,Bhubaneswar
+</p>
 
-<!-- ✅ MAIN GRID -->
+<!-- ✅ FULL SEARCH GRID (RESTORED + EXPANDED ✅) -->
 <div class="grid">
   <div class="card" onclick="searchPlaces('hospital')">🏥<small>Hospital</small></div>
   <div class="card" onclick="searchPlaces('pharmacy')">💊<small>Pharmacy</small></div>
   <div class="card" onclick="searchPlaces('supermarket')">🛒<small>Grocery</small></div>
+  <div class="card" onclick="searchPlaces('stationery')">📚<small>Stationery</small></div>
   <div class="card" onclick="searchPlaces('atm')">🏧<small>ATM</small></div>
+  <div class="card" onclick="searchPlaces('bank')">₹<small>Bank</small></div>
+  <div class="card" onclick="searchPlaces('24 hour pharmacy')">🌙<small>24x7</small></div>
+  <div class="card" onclick="searchPlaces('chicken shop')">🍗<small>Meat</small></div>
+  <div class="card" onclick="searchPlaces('vegetable market')">🥦<small>Vegetables</small></div>
 </div>
 
 <!-- ✅ SERVICES -->
@@ -179,42 +185,24 @@
 
 <div class="grid">
   <div class="card" onclick="openDoc('docs/bylaws/bylaws.pdf')">📜<small>Bylaws</small></div>
-  <div class="card" onclick="openDoc('docs/meetings/2026-may.pdf')">📝<small>May</small></div>
-  <div class="card" onclick="openDoc('docs/meetings/2026-june.pdf')">📝<small>June</small></div>
+  <div class="card" onclick="openDoc('docs/meetings/2026-may.pdf')">📝<small>Latest MoM</small></div>
+  <div class="card" onclick="openDoc('docs/meetings/2026-june.pdf')">📝<small>Notice</small></div>
 </div>
 
 <script>
 
-let latitude, longitude, areaName="";
-
-/* ✅ LOCATION + AREA */
-navigator.geolocation.getCurrentPosition(pos=>{
-  latitude = pos.coords.latitude;
-  longitude = pos.coords.longitude;
-
-  fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
-    .then(r=>r.json())
-    .then(d=>{
-      areaName = d.address.suburb || d.address.city || "";
-      document.getElementById("status").innerText = "📍 " + areaName;
-    });
-});
-
-/* ✅ SEARCH WITH LOCATION */
+/* ✅ SEARCH (STATIC LOCATION) */
 function searchPlaces(type){
-  if(areaName){
-    window.open(`https://www.google.com/maps/search/${type}+near+${areaName}`);
-  } else {
-    window.open(`https://www.google.com/maps/search/${type}`);
-  }
+  const query = `${type} near Utkal Greenex Sunderpada Bhubaneswar`;
+  window.open(`https://www.google.com/maps/search/${encodeURIComponent(query)}`);
 }
 
-/* ✅ PDF VIEW (NO DOWNLOAD) */
+/* ✅ OPEN PDF */
 function openDoc(path){
-  window.open(path,"_blank");
+  window.open(path, "_blank");
 }
 
-/* ✅ SMART APP OPEN */
+/* ✅ APP OPEN */
 function openApp(type){
   const map={
     uber:["uber://","https://m.uber.com"],
@@ -239,14 +227,13 @@ function openApp(type){
 function openOhhPro(){openApp("ohhpro");}
 function openWhatsApp(){window.location.href="https://wa.me/";}
 
-/* ✅ DARK MODE */
 function toggleDark(){
   document.body.classList.toggle("dark");
 }
 
 </script>
 
-<!-- ✅ BOTTOM NAV -->
+<!-- ✅ NAV -->
 <div class="bottom-bar">
   <div onclick="openApp('uber')">🚕<span>Uber</span></div>
   <div onclick="openApp('ola')">🚗<span>Ola</span></div>
