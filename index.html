@@ -3,43 +3,45 @@
 <head>
   <title>Local Yellow Pages</title>
 
-  <!-- ✅ Mobile support -->
+  <!-- ✅ Mobile friendly -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    body { font-family: Arial; margin: 15px; }
+    body {
+      font-family: Arial;
+      margin: 15px;
+    }
 
-    h1 { text-align: center; }
+    h1 {
+      text-align: center;
+    }
 
     button {
-      margin: 5px 0;
+      margin: 8px 0;
       padding: 12px;
       width: 100%;
       font-size: 16px;
-      border-radius: 6px;
+      border-radius: 8px;
       border: none;
       background: #007bff;
       color: white;
     }
 
-    .card {
-      padding: 12px;
-      margin: 10px 0;
-      border: 1px solid #ddd;
-      border-radius: 10px;
+    button:hover {
+      background: #0056b3;
     }
 
-    a {
-      text-decoration: none;
-      color: blue;
-      font-weight: bold;
+    .info {
+      margin-top: 10px;
+      font-size: 14px;
+      color: gray;
     }
   </style>
 </head>
 
 <body>
 
-<h1>📍 Nearby Services</h1>
+<h1>📍 My Local Yellow Pages</h1>
 
 <p id="status">Detecting your location...</p>
 
@@ -50,107 +52,76 @@
   <button onclick="searchPlaces('stationery')">📚 Stationery</button>
 </div>
 
-<div id="results"></div>
+<p class="info">Opens results directly in Google Maps ✅</p>
 
 <script>
 let latitude, longitude;
+let areaName = "";
 
-const status = document.getElementById("status");
-const resultsDiv = document.getElementById("results");
-
-// ✅ Get location
+// ✅ Get user location
 navigator.geolocation.getCurrentPosition(
   (pos) => {
     latitude = pos.coords.latitude;
     longitude = pos.coords.longitude;
-    status.innerText = "✅ Location detected. Choose a category.";
+
+    document.getElementById("status").innerText = "📍 Getting area name...";
+    getAreaName();
   },
   (err) => {
-    status.innerText = "❌ Enable location to use this app.";
+    document.getElementById("status").innerText =
+      "❌ Please allow location access.";
     console.error(err);
   }
 );
 
-// ✅ Distance function
-function getDistance(lat1, lon1, lat2, lon2) {
-  const R = 6371;
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
+// ✅ Convert lat/lon to readable area
+function getAreaName() {
+  const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
 
-  const a =
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(lat1 * Math.PI/180) *
-    Math.cos(lat2 * Math.PI/180) *
-    Math.sin(dLon/2) * Math.sin(dLon/2);
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      const addr = data.address;
 
-  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      areaName =
+        addr.suburb ||
+        addr.neighbourhood ||
+        addr.city ||
+        addr.town ||
+        addr.village ||
+        "your area";
+
+      document.getElementById("status").innerText =
+        "✅ Location detected: " + areaName;
+    })
+    .catch(() => {
+      areaName = latitude + "," + longitude;
+      document.getElementById("status").innerText =
+        "✅ Location detected";
+    });
 }
 
-// ✅ Main search function (OVERPASS - REAL NEARBY)
+// ✅ Open Google Maps search
 function searchPlaces(type) {
-
   if (!latitude || !longitude) {
     alert("Waiting for location...");
     return;
   }
 
-  status.innerText = "Searching nearby " + type + "...";
+  document.getElementById("status").innerText =
+    "Opening Google Maps...";
 
-  const tagMap = {
-    hospital: "amenity=hospital",
-    pharmacy: "amenity=pharmacy",
-    supermarket: "shop=supermarket",
-    stationery: "shop=stationery"
-  };
+  let query;
 
-  const tag = tagMap[type];
-  const radius = 5000; // meters
+  if (areaName) {
+    query = `${type} near ${areaName}`;
+  } else {
+    query = `${type} near ${latitude},${longitude}`;
+  }
 
-  const query = `
-    [out:json];
-    node[${tag}](around:${radius},${latitude},${longitude});
-    out;
-  `;
+  const url = `https://www.google.com/maps/search/${encodeURIComponent(query)}`;
 
-  fetch("https://overpass-api.de/api/interpreter", {
-    method: "POST",
-    body: query
-  })
-    .then(res => res.json())
-    .then(data => {
-
-      resultsDiv.innerHTML = "";
-
-      if (!data.elements || data.elements.length === 0) {
-        resultsDiv.innerHTML = "No nearby results found.";
-        return;
-      }
-
-      // ✅ sort by distance
-      data.elements.sort((a, b) => {
-        const d1 = getDistance(latitude, longitude, a.lat, a.lon);
-        const d2 = getDistance(latitude, longitude, b.lat, b.lon);
-        return d1 - d2;
-      });
-
-      data.elements.forEach(place => {
-
-        const name = place.tags?.name || "Unnamed place";
-        const dist = getDistance(latitude, longitude, place.lat, place.lon).toFixed(2);
-
-        resultsDiv.innerHTML += `
-        <div class="card">
-          <b>${name}</b><br>
-          📏 ${dist} km away<br>
-          <a href="https://www.google.com/maps?q=${place.lat},${place.lon      `;
-      });
-
-      status.innerText = `✅ Showing nearby ${type}`;
-    })
-    .catch(err => {
-      console.error(err);
-      status.innerText = "❌ Error fetching data. Try again.";
-    });
+  window.open(url, "_blank");
 }
 </script>
 
