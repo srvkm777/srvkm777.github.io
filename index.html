@@ -1,146 +1,225 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Apartment Helper</title>
+  <title>Utkal Greenex - Yellow Pages</title>
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body { font-family: Arial; margin: 15px; }
-    h1, h2 { text-align: center; }
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
 
-    button {
-      margin: 5px 0;
-      padding: 12px;
-      width: 100%;
-      font-size: 16px;
-      border-radius: 8px;
-      border: none;
-      background: #007bff;
-      color: white;
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      padding: 10px;
+      background: #f5f5f5;
+      color: #000;
+    }
+
+    body.dark {
+      background: #121212;
+      color: #fff;
+    }
+
+    h2 {
+      margin-top: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
     }
 
     .card {
-      padding: 12px;
-      margin: 8px 0;
-      border: 1px solid #ddd;
-      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      border-radius: 12px;
+      background: white;
+      cursor: pointer;
     }
 
-    a {
-      text-decoration: none;
-      color: blue;
-      font-weight: bold;
+    body.dark .card {
+      background: #1e1e1e;
+    }
+
+    .card span {
+      display: block;
+      font-size: 24px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    button {
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+
+    input {
+      padding: 8px;
+      width: 100%;
+      margin: 5px 0;
     }
   </style>
 </head>
 
 <body>
 
-<h1>🏢 Apartment Helper</h1>
-
-<p id="status">Detecting your location...</p>
-
-<!-- 🚨 Emergency -->
-<h2>🚨 Emergency</h2>
-<div class="card">
-  tel:100🚓 Police</a><br>
-  tel:101🔥 Fire</a><br>
-  tel:102🚑 Ambulance</a>
+<div class="topbar">
+  <h2>🏢 Apartment</h2>
+  <button onclick="toggleDark()">🌙</button>
 </div>
 
-<!-- 🏢 Apartment Contacts -->
-<h2>📞 Apartment Contacts</h2>
-<div class="card">tel:+919900000001🛡 Security</a></div>
-<div class="card">tel:+919900000002🛠 Maintenance</a></div>
-<div class="card">tel:+919900000003🧹 Housekeeping</a></div>
-<div class="card">tel:+919900000004⚡ Electrician</a></div>
+<p id="status">Detecting location...</p>
 
-<!-- 👩‍🍳 Domestic Help -->
-<h2>👩‍🍳 Domestic Help</h2>
-<div class="card">https://wa.me/919876543210💬 Maid (WhatsApp)</a></div>
-<div class="card">https://wa.me/919876543211💬 Cook</a></div>
+<!-- GRID UI -->
+<div class="grid">
 
-<!-- 📦 Daily Needs -->
-<h2>📦 Daily Needs</h2>
-<button onclick="searchPlaces('milk shop')">🥛 Milk</button>
-<button onclick="searchPlaces('vegetable market')">🥦 Vegetables</button>
-<button onclick="searchPlaces('laundry')">🧺 Laundry</button>
-<button onclick="searchPlaces('water supplier')">💧 Water</button>
+  <div class="card" onclick="searchPlaces('hospital')">
+    <span>🏥</span> Hospital
+  </div>
 
-<!-- 🔍 Nearby Search -->
-<h2>🔍 Nearby Search</h2>
-<button onclick="searchPlaces('hospital')">🏥 Hospitals</button>
-<button onclick="searchPlaces('pharmacy')">💊 Pharmacy</button>
-<button onclick="searchPlaces('supermarket')">🛒 Grocery</button>
-<button onclick="searchPlaces('stationery')">📚 Stationery</button>
-<button onclick="searchPlaces('24 hour pharmacy')">🌙 24x7 Pharmacy</button>
-<button onclick="searchPlaces('atm')">🏧 ATM</button>
+  <div class="card" onclick="searchPlaces('pharmacy')">
+    <span>💊</span> Pharmacy
+  </div>
 
-<!-- 🛵 Delivery Apps -->
-<h2>🛵 Delivery Apps</h2>
-<button onclick="openApp('https://www.swiggy.com')">🍔 Swiggy</button>
-<button onclick="openApp('https://www.zomato.com')">🍕 Zomato</button>
-<button onclick="openApp('https://www.blinkit.com')">🛒 Blinkit</button>
-<button onclick="openApp('https://www.zepto.now')">⚡ Zepto</button>
+  <div class="card" onclick="searchPlaces('supermarket')">
+    <span>🛒</span> Grocery
+  </div>
 
-<!-- 🚗 Travel -->
-<h2>🚗 Travel</h2>
-<button onclick="openRideApp()">🚕 Book Uber</button>
-<button onclick="sendDirections()">📍 Copy Location</button>
+  <div class="card" onclick="searchPlaces('stationery')">
+    <span>📚</span> Stationery
+  </div>
+
+  <div class="card" onclick="searchPlaces('atm')">
+    <span>🏧</span> ATM
+  </div>
+
+  <div class="card" onclick="searchPlaces('24 hour pharmacy')">
+    <span>🌙</span> 24x7
+  </div>
+
+  <div class="card" onclick="openApp('https://www.swiggy.com')">
+    <span>🍔</span> Swiggy
+  </div>
+
+  <div class="card" onclick="openApp('https://www.zomato.com')">
+    <span>🍕</span> Zomato
+  </div>
+
+  <div class="card" onclick="sendDirections()">
+    <span>📍</span> Share Loc
+  </div>
+
+</div>
+
+<!-- CONTACTS -->
+<h2>📞 Contacts (Editable)</h2>
+
+<div id="contacts"></div>
+
+<input id="name" placeholder="Name">
+<input id="phone" placeholder="Phone">
+<button onclick="addContact()">➕ Add Contact</button>
 
 <script>
-let latitude, longitude;
-let areaName = "";
+let latitude, longitude, areaName = "";
 
-// 📍 Get location
+// ✅ LOCATION
 navigator.geolocation.getCurrentPosition(
   (pos) => {
     latitude = pos.coords.latitude;
     longitude = pos.coords.longitude;
-    document.getElementById("status").innerText = "📍 Getting area name...";
     getAreaName();
   },
   () => {
-    document.getElementById("status").innerText = "❌ Allow location access.";
+    document.getElementById("status").innerText = "Enable location";
   }
 );
 
-// ✅ Reverse geocode
 function getAreaName() {
   fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
     .then(res => res.json())
     .then(data => {
-      const addr = data.address;
-      areaName = addr.suburb || addr.city || addr.town || "your area";
-      document.getElementById("status").innerText = "✅ Location: " + areaName;
+      areaName = data.address.suburb || data.address.city;
+      document.getElementById("status").innerText = "📍 " + areaName;
     });
 }
 
-// ✅ Google Maps search
+// ✅ SEARCH
 function searchPlaces(type) {
-  if (!latitude) return alert("Waiting for location...");
-  const query = `${type} near ${areaName}`;
-  const url = `https://www.google.com/maps/search/${encodeURIComponent(query)}`;
+  const url = `https://www.google.com/maps/search/${type}+near+${areaName}`;
   window.open(url, "_blank");
 }
 
-// ✅ Open apps
+// ✅ APPS
 function openApp(url) {
-  window.open(url, "_blank");
+  window.open(url);
 }
 
-// ✅ Copy location for drivers
+// ✅ LOCATION SHARE
 function sendDirections() {
   const link = `https://www.google.com/maps?q=${latitude},${longitude}`;
   navigator.clipboard.writeText(link);
-  alert("Location copied! Share with driver.");
+  alert("Location copied!");
 }
 
-// ✅ Uber shortcut
-function openRideApp() {
-  const url = `https://m.uber.com/ul/?action=setPickup&pickup=my_location`;
-  window.open(url);
+// 🌙 DARK MODE
+function toggleDark() {
+  document.body.classList.toggle("dark");
+  localStorage.setItem("dark", document.body.classList.contains("dark"));
 }
+
+// restore dark mode
+if (localStorage.getItem("dark") === "true") {
+  document.body.classList.add("dark");
+}
+
+// ✅ CONTACT STORAGE
+function loadContacts() {
+  const data = JSON.parse(localStorage.getItem("contacts") || "[]");
+  const el = document.getElementById("contacts");
+  el.innerHTML = "";
+
+  data.forEach((c, i) => {
+    el.innerHTML += `
+      <div class="card">
+        ${c.name} 
+        <br>
+        <a href="tel
+        <button onclick="deleteContact(${i})">❌</button>
+      </div>
+    `;
+  });
+}
+
+function addContact() {
+  const name = document.getElementById("name").value;
+  const phone = document.getElementById("phone").value;
+
+  const data = JSON.parse(localStorage.getItem("contacts") || "[]");
+  data.push({ name, phone });
+
+  localStorage.setItem("contacts", JSON.stringify(data));
+
+  loadContacts();
+}
+
+function deleteContact(i) {
+  let data = JSON.parse(localStorage.getItem("contacts"));
+  data.splice(i, 1);
+  localStorage.setItem("contacts", JSON.stringify(data));
+  loadContacts();
+}
+
+loadContacts();
 </script>
 
 </body>
