@@ -148,49 +148,6 @@
 <script>
 let latitude, longitude, areaName = "";
 
-/* CONTACT DATA */
-const contacts = [
-  {
-    category: "🚨 Emergency",
-    color: "#ff4d4d",
-    items: [
-      { name: "Police", phone: "100" },
-      { name: "Ambulance", phone: "102" },
-      { name: "Fire", phone: "101" }
-    ]
-  },
-  {
-    category: "🏢 Apartment",
-    color: "#007bff",
-    items: [
-      { name: "Security", phone: "919900000001" },
-      { name: "Maintenance", phone: "919900000002" },
-      { name: "Housekeeping", phone: "919900000003" }
-    ]
-  }
-];
-
-/* LOAD CONTACTS */
-function loadContacts() {
-  const el = document.getElementById("contacts");
-  el.innerHTML = "";
-
-  contacts.forEach(group => {
-    el.innerHTML += `<h3>${group.category}</h3>`;
-
-    group.items.forEach(c => {
-      el.innerHTML += `
-        <div class="contact-card" style="border-left:4px solid ${group.color}">
-          <div class="contact-info">
-            <span class="contact-name">${c.name}</span>
-            <span class="contact-phone">${c.phone}</span>
-          </div>
-          <a class="call📞 Call</a>
-        </div>
-      `;
-    });
-  });
-}
 
 /* LOCATION */
 navigator.geolocation.getCurrentPosition(
