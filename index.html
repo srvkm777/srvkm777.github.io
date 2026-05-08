@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Local Yellow Pages</title>
+  <style>
+    body { font-family: Arial; margin: 20px; }
+    button { margin: 5px; padding: 8px; }
+    .card {
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>📍 Nearby Services</h1>
+
+<p id="status">Detecting your location...</p>
+
+<div>
+  <button onclick="searchPlaces('hospital')">🏥 Hospitals</button>
+  <button onclick="searchPlaces('pharmacy')">💊 Pharmacy</button>
+  <button onclick="searchPlaces('supermarket')">🛒 Grocery</button>
+  <button onclick="searchPlaces('stationery')">📚 Stationery</button>
+</div>
+
+<div id="results"></div>
+
+<script>
+let latitude, longitude;
+
+const status = document.getElementById("status");
+const resultsDiv = document.getElementById("results");
+
+// ✅ Get user location
+navigator.geolocation.getCurrentPosition(
+  (pos) => {
+    latitude = pos.coords.latitude;
+    longitude = pos.coords.longitude;
+    status.innerText = "Location detected ✅ Choose a category above";
+  },
+  () => {
+    status.innerText = "❌ Location access denied. Cannot fetch nearby places.";
+  }
+);
+
+// ✅ Search function using OpenStreetMap (Nominatim)
+function searchPlaces(type) {
+  if (!latitude || !longitude) {
+    alert("Wait for location detection first");
+    return;
+  }
+
+  status.innerText = "Searching nearby " + type + "...";
+
+  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${type}&limit=10&lat=${latitude}&lon=${longitude}`;
+
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      resultsDiv.innerHTML = "";
+
+      if (data.length === 0) {
+        resultsDiv.innerHTML = "No results found.";
+        return;
+      }
+
+      data.forEach(place => {
+        resultsDiv.innerHTML += `
+          <div class="card">
+            <b>${place.display_name}</b><br>
+            🌍 Lat: ${place.lat}, Lon: ${place.lon}<br>
+            <a href="https://www.google.com/mapse.lat},${place.lon}📍 Open in Maps</a>
+          </div>
+        `;
+      });
+
+      status.innerText = `Showing ${type} near you`;
+    });
+}
+</script>
+
+</body>
+</html>
