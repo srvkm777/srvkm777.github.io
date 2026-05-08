@@ -1,23 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Local Yellow Pages</title>
-
-  <!-- ✅ Mobile friendly -->
+  <title>Apartment Helper</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    body {
-      font-family: Arial;
-      margin: 15px;
-    }
-
-    h1 {
-      text-align: center;
-    }
+    body { font-family: Arial; margin: 15px; }
+    h1, h2 { text-align: center; }
 
     button {
-      margin: 8px 0;
+      margin: 5px 0;
       padding: 12px;
       width: 100%;
       font-size: 16px;
@@ -27,101 +19,127 @@
       color: white;
     }
 
-    button:hover {
-      background: #0056b3;
+    .card {
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 10px;
     }
 
-    .info {
-      margin-top: 10px;
-      font-size: 14px;
-      color: gray;
+    a {
+      text-decoration: none;
+      color: blue;
+      font-weight: bold;
     }
   </style>
 </head>
 
 <body>
 
-<h1>📍 My Local Yellow Pages</h1>
+<h1>🏢 Apartment Helper</h1>
 
 <p id="status">Detecting your location...</p>
 
-<div>
-  <button onclick="searchPlaces('hospital')">🏥 Hospitals</button>
-  <button onclick="searchPlaces('pharmacy')">💊 Pharmacy</button>
-  <button onclick="searchPlaces('supermarket')">🛒 Grocery</button>
-  <button onclick="searchPlaces('stationery')">📚 Stationery</button>
+<!-- 🚨 Emergency -->
+<h2>🚨 Emergency</h2>
+<div class="card">
+  tel:100🚓 Police</a><br>
+  tel:101🔥 Fire</a><br>
+  tel:102🚑 Ambulance</a>
 </div>
 
-<p class="info">Opens results directly in Google Maps ✅</p>
+<!-- 🏢 Apartment Contacts -->
+<h2>📞 Apartment Contacts</h2>
+<div class="card">tel:+919900000001🛡 Security</a></div>
+<div class="card">tel:+919900000002🛠 Maintenance</a></div>
+<div class="card">tel:+919900000003🧹 Housekeeping</a></div>
+<div class="card">tel:+919900000004⚡ Electrician</a></div>
+
+<!-- 👩‍🍳 Domestic Help -->
+<h2>👩‍🍳 Domestic Help</h2>
+<div class="card">https://wa.me/919876543210💬 Maid (WhatsApp)</a></div>
+<div class="card">https://wa.me/919876543211💬 Cook</a></div>
+
+<!-- 📦 Daily Needs -->
+<h2>📦 Daily Needs</h2>
+<button onclick="searchPlaces('milk shop')">🥛 Milk</button>
+<button onclick="searchPlaces('vegetable market')">🥦 Vegetables</button>
+<button onclick="searchPlaces('laundry')">🧺 Laundry</button>
+<button onclick="searchPlaces('water supplier')">💧 Water</button>
+
+<!-- 🔍 Nearby Search -->
+<h2>🔍 Nearby Search</h2>
+<button onclick="searchPlaces('hospital')">🏥 Hospitals</button>
+<button onclick="searchPlaces('pharmacy')">💊 Pharmacy</button>
+<button onclick="searchPlaces('supermarket')">🛒 Grocery</button>
+<button onclick="searchPlaces('stationery')">📚 Stationery</button>
+<button onclick="searchPlaces('24 hour pharmacy')">🌙 24x7 Pharmacy</button>
+<button onclick="searchPlaces('atm')">🏧 ATM</button>
+
+<!-- 🛵 Delivery Apps -->
+<h2>🛵 Delivery Apps</h2>
+<button onclick="openApp('https://www.swiggy.com')">🍔 Swiggy</button>
+<button onclick="openApp('https://www.zomato.com')">🍕 Zomato</button>
+<button onclick="openApp('https://www.blinkit.com')">🛒 Blinkit</button>
+<button onclick="openApp('https://www.zepto.now')">⚡ Zepto</button>
+
+<!-- 🚗 Travel -->
+<h2>🚗 Travel</h2>
+<button onclick="openRideApp()">🚕 Book Uber</button>
+<button onclick="sendDirections()">📍 Copy Location</button>
 
 <script>
 let latitude, longitude;
 let areaName = "";
 
-// ✅ Get user location
+// 📍 Get location
 navigator.geolocation.getCurrentPosition(
   (pos) => {
     latitude = pos.coords.latitude;
     longitude = pos.coords.longitude;
-
     document.getElementById("status").innerText = "📍 Getting area name...";
     getAreaName();
   },
-  (err) => {
-    document.getElementById("status").innerText =
-      "❌ Please allow location access.";
-    console.error(err);
+  () => {
+    document.getElementById("status").innerText = "❌ Allow location access.";
   }
 );
 
-// ✅ Convert lat/lon to readable area
+// ✅ Reverse geocode
 function getAreaName() {
-  const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
-
-  fetch(url)
+  fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
     .then(res => res.json())
     .then(data => {
       const addr = data.address;
-
-      areaName =
-        addr.suburb ||
-        addr.neighbourhood ||
-        addr.city ||
-        addr.town ||
-        addr.village ||
-        "your area";
-
-      document.getElementById("status").innerText =
-        "✅ Location detected: " + areaName;
-    })
-    .catch(() => {
-      areaName = latitude + "," + longitude;
-      document.getElementById("status").innerText =
-        "✅ Location detected";
+      areaName = addr.suburb || addr.city || addr.town || "your area";
+      document.getElementById("status").innerText = "✅ Location: " + areaName;
     });
 }
 
-// ✅ Open Google Maps search
+// ✅ Google Maps search
 function searchPlaces(type) {
-  if (!latitude || !longitude) {
-    alert("Waiting for location...");
-    return;
-  }
-
-  document.getElementById("status").innerText =
-    "Opening Google Maps...";
-
-  let query;
-
-  if (areaName) {
-    query = `${type} near ${areaName}`;
-  } else {
-    query = `${type} near ${latitude},${longitude}`;
-  }
-
+  if (!latitude) return alert("Waiting for location...");
+  const query = `${type} near ${areaName}`;
   const url = `https://www.google.com/maps/search/${encodeURIComponent(query)}`;
-
   window.open(url, "_blank");
+}
+
+// ✅ Open apps
+function openApp(url) {
+  window.open(url, "_blank");
+}
+
+// ✅ Copy location for drivers
+function sendDirections() {
+  const link = `https://www.google.com/maps?q=${latitude},${longitude}`;
+  navigator.clipboard.writeText(link);
+  alert("Location copied! Share with driver.");
+}
+
+// ✅ Uber shortcut
+function openRideApp() {
+  const url = `https://m.uber.com/ul/?action=setPickup&pickup=my_location`;
+  window.open(url);
 }
 </script>
 
