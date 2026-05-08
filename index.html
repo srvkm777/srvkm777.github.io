@@ -2,11 +2,7 @@
 <html>
 <head>
   <title>Utkal Greenex - Yellow Pages</title>
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- PWA -->
-  #manifest.json
 
   <style>
     body {
@@ -24,7 +20,6 @@
     }
 
     h2 { margin-top: 15px; }
-    h3 { margin: 15px 0 5px; }
 
     .topbar {
       display: flex;
@@ -32,6 +27,7 @@
       align-items: center;
     }
 
+    /* GRID */
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -55,15 +51,18 @@
       font-size: 24px;
     }
 
-    /* CONTACTS */
+    /* ✅ CONTACT CARD = FULL CLICKABLE */
     .contact-card {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px;
+      padding: 14px;
       margin: 8px 0;
-      border-radius: 10px;
+      border-radius: 12px;
       background: white;
+
+      text-decoration: none;
+      color: inherit;
     }
 
     body.dark .contact-card {
@@ -75,18 +74,21 @@
       flex-direction: column;
     }
 
-    .contact-name { font-weight: bold; }
-    .contact-phone { font-size: 12px; color: gray; }
-
-    .call-btn {
-      padding: 8px 12px;
-      background: #28a745;
-      color: white;
-      border-radius: 6px;
-      text-decoration: none;
+    .contact-name {
+      font-weight: bold;
+      font-size: 15px;
     }
 
-    /* BOTTOM NAV */
+    .contact-phone {
+      font-size: 12px;
+      color: gray;
+    }
+
+    .call-icon {
+      font-size: 20px;
+    }
+
+    /* ✅ BOTTOM NAV */
     .bottom-bar {
       position: fixed;
       bottom: 0;
@@ -97,12 +99,10 @@
       justify-content: space-around;
       padding: 8px 0;
       border-top: 1px solid #ddd;
-      z-index: 1000;
     }
 
     body.dark .bottom-bar {
       background: #1e1e1e;
-      border-top: 1px solid #333;
     }
 
     .bottom-bar div {
@@ -137,17 +137,55 @@
   <div class="card" onclick="searchPlaces('atm')"><span>🏧</span>ATM</div>
   <div class="card" onclick="searchPlaces('24 hour pharmacy')"><span>🌙</span>24x7</div>
   <div class="card" onclick="searchPlaces('bank')"><span>₹</span>Bank</div>
-  <div class="card" onclick="searchPlaces('chicken & meat shop')"><span>🍗</span>Meat & Chicken</div>
-  <div class="card" onclick="sendDirections()"><span>📍</span>Share Loc</div>
+  <div class="card" onclick="searchPlaces('chicken & meat shop')"><span>🍗</span>Meat</div>
+  <div class="card" onclick="sendDirections()"><span>📍</span>Share</div>
 </div>
 
-<!-- CONTACTS -->
+<!-- ✅ CONTACTS (FULL CLICKABLE) -->
 <h2>📞 Important Contacts</h2>
-<div id="contacts"></div>
+
+<a href="tel:+919900000001" class="contact-card">
+  <div class="contact-info">
+    <span class="contact-name">🛡 Security</span>
+    <span class="contact-phone">+91 9900000001</span>
+  </div>
+  <div class="call-icon">📞</div>
+</a>
+
+<a href="tel:+919900000002" class="contact-card">
+  <div class="contact-info">
+    <span class="contact-name">🛠 Maintenance</span>
+    <span class="contact-phone">+91 9900000002</span>
+  </div>
+  <div class="call-icon">📞</div>
+</a>
+
+<a href="tel:100" class="contact-card">
+  <div class="contact-info">
+    <span class="contact-name">🚨 Police</span>
+    <span class="contact-phone">100</span>
+  </div>
+  <div class="call-icon">📞</div>
+</a>
+
+<a href="tel:102" class="contact-card">
+  <div class="contact-info">
+    <span class="contact-name">🚑 Ambulance</span>
+    <span class="contact-phone">102</span>
+  </div>
+  <div class="call-icon">📞</div>
+</a>
+
+<a href="tel:101" class="contact-card">
+  <div class="contact-info">
+    <span class="contact-name">🔥 Fire</span>
+    <span class="contact-phone">101</span>
+  </div>
+  <div class="call-icon">📞</div>
+</a>
 
 <script>
 let latitude, longitude, areaName = "";
-
 
 /* LOCATION */
 navigator.geolocation.getCurrentPosition(
@@ -176,36 +214,19 @@ function searchPlaces(type) {
   window.open(url);
 }
 
-/* ✅ APP OPEN (FIXED) */
+/* ✅ APP DEEP LINK */
 function openApp(type) {
-  let scheme = "";
-  let fallback = "";
+  let scheme='', fallback='';
 
-  if (type === "uber") {
-    scheme = "uber://";
-    fallback = "https://m.uber.com";
-  } else if (type === "ola") {
-    scheme = "olacabs://";
-    fallback = "https://book.olacabs.com";
-  } else if (type === "swiggy") {
-    scheme = "swiggy://";
-    fallback = "https://www.swiggy.com";
-  } else if (type === "zomato") {
-    scheme = "zomato://";
-    fallback = "https://www.zomato.com";
-  } else if (type === "blinkit") {
-    scheme = "blinkit://";
-    fallback = "https://blinkit.com";
-  } else if (type === "bigbasket") {
-    scheme = "bbnow://";
-    fallback = "https://www.bigbasket.com";
-  }
+  if (type==='uber'){ scheme='uber://'; fallback='https://m.uber.com';}
+  if (type==='ola'){ scheme='olacabs://'; fallback='https://book.olacabs.com';}
+  if (type==='swiggy'){ scheme='swiggy://'; fallback='https://www.swiggy.com';}
+  if (type==='zomato'){ scheme='zomato://'; fallback='https://www.zomato.com';}
+  if (type==='blinkit'){ scheme='blinkit://'; fallback='https://blinkit.com';}
+  if (type==='bigbasket'){ scheme='bbnow://'; fallback='https://www.bigbasket.com';}
 
   window.location.href = scheme;
-
-  setTimeout(() => {
-    window.location.href = fallback;
-  }, 1200);
+  setTimeout(()=>window.location.href=fallback,1200);
 }
 
 /* SHARE LOCATION */
@@ -223,14 +244,6 @@ function toggleDark() {
 
 if (localStorage.getItem("dark") === "true") {
   document.body.classList.add("dark");
-}
-
-/* INIT */
-loadContacts();
-
-/* PWA */
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js');
 }
 </script>
 
