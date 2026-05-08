@@ -26,19 +26,18 @@
 
     /* ✅ HEADER */
     .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      background: white;
       position: sticky;
       top: 0;
-      background: rgba(255,255,255,0.9);
-      backdrop-filter: blur(10px);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px;
-      z-index: 1000;
+      z-index: 10;
     }
 
     body.dark .header {
-      background: rgba(20,20,20,0.9);
+      background: #1e1e1e;
     }
 
     .logo-wrap {
@@ -48,13 +47,7 @@
     }
 
     .logo {
-      width: 32px;
-      height: 32px;
-    }
-
-    h3 {
-      margin: 0;
-      font-size: 16px;
+      width: 30px;
     }
 
     /* ✅ GRID */
@@ -70,36 +63,35 @@
       border-radius: 16px;
       padding: 16px;
       text-align: center;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-      transition: transform 0.15s ease;
-    }
-
-    body.dark .card {
-      background: #1e1e1e;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: 0.2s;
     }
 
     .card:active {
       transform: scale(0.95);
     }
 
+    body.dark .card {
+      background: #1e1e1e;
+    }
+
     .card span {
       font-size: 22px;
-      display: block;
     }
 
     .card small {
+      display: block;
       font-size: 12px;
-      color: gray;
+      margin-top: 5px;
     }
 
-    /* ✅ SECTION */
     h2 {
-      padding: 0 12px;
+      padding: 0 10px;
       color: var(--green);
-      margin: 10px 0;
     }
 
-    /* ✅ ACTION CARD */
+    /* ✅ ACTION CARDS */
     .action-card {
       display: flex;
       justify-content: space-between;
@@ -108,22 +100,18 @@
       padding: 14px;
       border-radius: 16px;
       background: var(--card);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-      transition: transform 0.15s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      cursor: pointer;
     }
 
     body.dark .action-card {
       background: #1e1e1e;
     }
 
-    .action-card:active {
-      transform: scale(0.97);
-    }
-
     .action-left {
       display: flex;
-      gap: 10px;
       align-items: center;
+      gap: 10px;
     }
 
     .action-info {
@@ -159,32 +147,26 @@
     .bottom-bar div {
       text-align: center;
       font-size: 12px;
-    }
-
-    .bottom-bar div:active {
-      transform: scale(0.9);
+      cursor: pointer;
     }
 
     .bottom-bar span {
       display: block;
       font-size: 10px;
     }
-
   </style>
 </head>
 
 <body>
 
 <!-- ✅ HEADER -->
-
 <div class="header">
   <div class="logo-wrap">
     <img src="utkalgreenexlogi.png" class="logo">
-    <h3>Utkal Greenex Directory</h3>
+    <strong>Utkal Greenex</strong>
   </div>
   <button onclick="toggleDark()">🌙</button>
 </div>
-
 
 <p id="status" style="padding:10px;">Detecting location...</p>
 
@@ -198,8 +180,8 @@
   <div class="card" onclick="searchPlaces('24 hour pharmacy')">🌙<small>24x7</small></div>
 </div>
 
+<!-- ✅ SOCIETY SERVICES -->
 <h2>📢 Society Services</h2>
-
 
 <div class="action-card" onclick="openOhhPro()">
   <div class="action-left">
@@ -212,7 +194,6 @@
   ➡️
 </div>
 
-
 <div class="action-card" onclick="openWhatsApp()">
   <div class="action-left">
     💬
@@ -224,13 +205,37 @@
   📱
 </div>
 
+<!-- ✅ ✅ DOCUMENT GRID (AFTER SERVICES ✅) -->
+<h2>📄 Documents</h2>
+
+<div class="grid">
+
+  <div class="card" onclick="openDoc('docs/bylaws/bylaws.pdf')">
+    📜
+    <small>Bylaws</small>
+  </div>
+
+  <div class="card" onclick="openDoc('docs/meetings/2026-may.pdf')">
+    📝
+    <small>Latest MOM</small>
+  </div>
+
+  <div class="card" onclick="openDoc('docs/notices/water.pdf')">
+    📢
+    <small>Notice</small>
+  </div>
+
+</div>
+
 <script>
 
 let latitude, longitude, areaName="";
 
+/* LOCATION */
 navigator.geolocation.getCurrentPosition(pos=>{
   latitude=pos.coords.latitude;
   longitude=pos.coords.longitude;
+
   fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
   .then(r=>r.json()).then(d=>{
     areaName=d.address.suburb||d.address.city;
@@ -238,13 +243,22 @@ navigator.geolocation.getCurrentPosition(pos=>{
   });
 });
 
+/* SEARCH */
 function searchPlaces(type){
   window.open(`https://www.google.com/maps/search/${type}+near+${areaName}`);
 }
 
-/* ✅ PREMIUM APP OPEN */
+/* ✅ DOCUMENT DOWNLOAD */
+function openDoc(path){
+  const a=document.createElement("a");
+  a.href=path;
+  a.download="";
+  a.click();
+}
+
+/* ✅ APP OPEN */
 function openApp(type){
-  let map={
+  const map={
     uber:["uber://","https://m.uber.com"],
     ola:["olacabs://","https://book.olacabs.com"],
     swiggy:["swiggy://","https://swiggy.com"],
@@ -254,9 +268,9 @@ function openApp(type){
     ohhpro:["ohhpro://","https://apps.apple.com/se/app/ohhpro-junction/id1596785670"]
   };
 
-  let [scheme,fallback]=map[type];
+  const [scheme,fallback]=map[type];
 
-  let iframe=document.createElement("iframe");
+  const iframe=document.createElement("iframe");
   iframe.style.display="none";
   iframe.src=scheme;
   document.body.appendChild(iframe);
@@ -267,6 +281,7 @@ function openApp(type){
 function openOhhPro(){openApp("ohhpro");}
 function openWhatsApp(){window.location.href="https://wa.me/";}
 
+/* DARK MODE */
 function toggleDark(){
   document.body.classList.toggle("dark");
 }
