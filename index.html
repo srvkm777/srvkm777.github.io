@@ -26,6 +26,7 @@
       align-items: center;
     }
 
+    /* GRID */
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -47,59 +48,49 @@
       font-size: 24px;
     }
 
-    /* ✅ CONTACT CARDS */
-    .contact-card {
+    /* ACTION CARDS */
+    .action-card {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 14px;
-      margin: 8px 0;
+      margin: 10px 0;
       border-radius: 12px;
       background: white;
-      text-decoration: none;
-      color: inherit;
+      cursor: pointer;
     }
 
-    body.dark .contact-card {
+    body.dark .action-card {
       background: #1e1e1e;
     }
 
-    .contact-info {
+    .action-info {
       display: flex;
       flex-direction: column;
     }
 
-    .contact-name { font-weight: bold; }
-    .contact-phone { font-size: 12px; color: gray; }
-
-    .icon { font-size: 20px; }
-
-    /* ✅ BOTTOM NAV */
-    .bottom-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: white;
-      display: flex;
-      justify-content: space-around;
-      padding: 8px 0;
-      border-top: 1px solid #ddd;
+    .action-name {
+      font-weight: bold;
     }
 
-    body.dark .bottom-bar {
-      background: #1e1e1e;
-    }
-
-    .bottom-bar div {
-      text-align: center;
+    .action-desc {
       font-size: 12px;
-      cursor: pointer;
+      color: gray;
     }
 
-    .bottom-bar span {
-      display: block;
-      font-size: 10px;
+    .icon {
+      font-size: 20px;
+    }
+
+    .logo {
+      width: 28px;
+      height: 28px;
+      margin-right: 10px;
+    }
+
+    .action-left {
+      display: flex;
+      align-items: center;
     }
 
   </style>
@@ -114,12 +105,11 @@
 
 <p id="status">Detecting location...</p>
 
-<!-- MAIN GRID -->
+<!-- GRID -->
 <div class="grid">
   <div class="card" onclick="searchPlaces('hospital')"><span>🏥</span>Hospital</div>
   <div class="card" onclick="searchPlaces('pharmacy')"><span>💊</span>Pharmacy</div>
   <div class="card" onclick="searchPlaces('supermarket')"><span>🛒</span>Grocery</div>
-  <div class="card" onclick="searchPlaces('stationery')"><span>📚</span>Stationery</div>
   <div class="card" onclick="searchPlaces('atm')"><span>🏧</span>ATM</div>
   <div class="card" onclick="searchPlaces('bank')"><span>₹</span>Bank</div>
   <div class="card" onclick="searchPlaces('24 hour pharmacy')"><span>🌙</span>24x7</div>
@@ -127,68 +117,55 @@
   <div class="card" onclick="sendDirections()"><span>📍</span>Share</div>
 </div>
 
-<!-- ✅ CONTACTS -->
-<h2>📞 Important Contacts</h2>
+<!-- ✅ SOCIETY SERVICES -->
+<h2>📢 Society Services</h2>
 
-<a href="tel:+919900000001" class="contact-card">
-  <div class="contact-info">
-    <span class="contact-name">🛡 Security</span>
-    <span class="contact-phone">+91 9900000001</span>
+<!-- ✅ OhhPro Junction -->
+<div class="action-card" onclick="openOhhPro()">
+  <div class="action-left">
+    <img class="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA7CAYAAAAn+enKAAA..." />
+    <div class="action-info">
+      <span class="action-name">OhhPro Junction</span>
+      <span class="action-desc">Complaints, requests & emergencies</span>
+    </div>
   </div>
-  <div class="icon">📞</div>
-</a>
+  <div class="icon">➡️</div>
+</div>
 
-<a href="tel:+919900000002" class="contact-card">
-  <div class="contact-info">
-    <span class="contact-name">🛠 Maintenance</span>
-    <span class="contact-phone">+91 9900000002</span>
-  </div>
-  <div class="icon">📞</div>
-</a>
-
-<a href="tel:100" class="contact-card">
-  <div class="contact-info">
-    <span class="contact-name">🚨 Police</span>
-    <span class="contact-phone">100</span>
-  </div>
-  <div class="icon">📞</div>
-</a>
-
-<a href="tel:102" class="contact-card">
-  <div class="contact-info">
-    <span class="contact-name">🚑 Ambulance</span>
-    <span class="contact-phone">102</span>
-  </div>
-  <div class="icon">📞</div>
-</a>
-
-<!-- ✅ WHATSAPP APP OPEN -->
-<a href="intent://send/#Intent;scheme=whatsapp;package=com.whatsapp;end;" class="contact-card">
-  <div class="contact-info">
-    <span class="contact-name">💬 Open WhatsApp</span>
-    <span class="contact-phone">Go to Society Group</span>
+<!-- WhatsApp -->
+<div class="action-card" onclick="openWhatsApp()">
+  <div class="action-left">
+    <span style="margin-right:10px;">💬</span>
+    <div class="action-info">
+      <span class="action-name">Open WhatsApp</span>
+      <span class="action-desc">Go to society group</span>
+    </div>
   </div>
   <div class="icon">📱</div>
-</a>
+</div>
 
-<!-- ✅ SUGGESTION BUTTON -->
-<a href="#" onclick="sendSuggestion()" class="contact-card">
-  <div class="contact-info">
-    <span class="contact-name">💡 Suggest Improvement</span>
-    <span class="contact-phone">Send feedback</span>
+<!-- Suggest -->
+<div class="action-card" onclick="openSuggestion()">
+  <div class="action-left">
+    <span style="margin-right:10px;">💡</span>
+    <div class="action-info">
+      <span class="action-name">Suggest Improvement</span>
+      <span class="action-desc">Give feedback for this page</span>
+    </div>
   </div>
   <div class="icon">✉️</div>
-</a>
+</div>
 
 <script>
 
 let latitude, longitude, areaName = "";
 
-/* ✅ LOCATION */
+/* LOCATION */
 navigator.geolocation.getCurrentPosition(
   pos => {
     latitude = pos.coords.latitude;
     longitude = pos.coords.longitude;
+
     fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
       .then(res => res.json())
       .then(data => {
@@ -201,63 +178,43 @@ navigator.geolocation.getCurrentPosition(
   }
 );
 
-/* ✅ GOOGLE MAP SEARCH */
+/* SEARCH */
 function searchPlaces(type) {
   window.open(`https://www.google.com/maps/search/${type}+near+${areaName}`);
 }
 
-/* ✅ APP OPEN */
-function openApp(type) {
-  let map = {
-    uber: ["uber://", "https://m.uber.com"],
-    ola: ["olacabs://", "https://book.olacabs.com"],
-    swiggy: ["swiggy://", "https://www.swiggy.com"],
-    zomato: ["zomato://", "https://www.zomato.com"],
-    blinkit: ["blinkit://", "https://blinkit.com"],
-    bigbasket: ["bbnow://", "https://www.bigbasket.com"]
-  };
-
-  let [scheme, fallback] = map[type];
-  window.location.href = scheme;
-  setTimeout(() => window.location.href = fallback, 1200);
-}
-
-/* ✅ SHARE LOCATION */
+/* SHARE */
 function sendDirections() {
   const link = `https://www.google.com/maps?q=${latitude},${longitude}`;
   navigator.clipboard.writeText(link);
   alert("Location copied!");
 }
 
-/* ✅ EMAIL */
-function sendSuggestion() {
-  const subject = encodeURIComponent("Suggestion for Utkal Greenex");
-  const body = encodeURIComponent("Hi,\n\nMy suggestion:\n");
-  window.location.href = `mailto:souravkm777@gmail.com?subject=${subject}&body=${body}`;
+/* ✅ OHHPRO */
+function openOhhPro() {
+  window.location.href = "intent://#Intent;package=com.ohhpro.junction;end";
+
+  setTimeout(() => {
+    window.location.href = "https://play.google.com/store";
+  }, 1200);
+}
+
+/* ✅ WHATSAPP */
+function openWhatsApp() {
+  window.location.href = "intent://send/#Intent;scheme=whatsapp;package=com.whatsapp;end;";
+}
+
+/* ✅ SUGGEST (Google Form) */
+function openSuggestion() {
+  window.open("https://forms.gle/YOUR_FORM_LINK");
 }
 
 /* ✅ DARK MODE */
 function toggleDark() {
   document.body.classList.toggle("dark");
-  localStorage.setItem("dark", document.body.classList.contains("dark"));
-}
-
-if (localStorage.getItem("dark") === "true") {
-  document.body.classList.add("dark");
 }
 
 </script>
 
-<!-- ✅ BOTTOM NAV -->
-<div class="bottom-bar">
-  <div onclick="openApp('uber')">🚕<span>Uber</span></div>
-  <div onclick="openApp('ola')">🚗<span>Ola</span></div>
-  <div onclick="openApp('swiggy')">🍔<span>Swiggy</span></div>
-  <div onclick="openApp('zomato')">🍕<span>Zomato</span></div>
-  <div onclick="openApp('blinkit')">🛒<span>Blinkit</span></div>
-  <div onclick="openApp('bigbasket')">🧺<span>BB</span></div>
-</div>
-
 </body>
 </html>
-``
