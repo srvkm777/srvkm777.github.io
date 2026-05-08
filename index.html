@@ -8,46 +8,50 @@
     :root {
       --green: #2e7d5b;
       --light: #f4f7f5;
-      --card: #ffffff;
-      --dark: #121212;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
       margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--light);
       padding-bottom: 80px;
     }
 
     body.dark {
-      background: var(--dark);
+      background: #121212;
       color: white;
     }
 
     /* ✅ HEADER */
     .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px;
-      background: white;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    body.dark .header {
-      background: #1e1e1e;
+      background: linear-gradient(135deg, #2e7d5b, #3ea97c);
+      color: white;
     }
 
     .logo-wrap {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
     }
 
     .logo {
-      width: 30px;
+      width: 55px;
+      height: 55px;
+      border-radius: 12px;
+      background: white;
+      padding: 4px;
+    }
+
+    .title {
+      font-size: 22px;
+      font-weight: 700;
     }
 
     /* ✅ GRID */
@@ -55,57 +59,37 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-      padding: 10px;
+      padding: 12px;
     }
 
     .card {
-      background: var(--card);
+      background: white;
+      padding: 14px;
       border-radius: 16px;
-      padding: 16px;
       text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
       cursor: pointer;
-      transition: 0.2s;
     }
 
-    .card:active {
-      transform: scale(0.95);
-    }
+    .card:active { transform: scale(0.95); }
 
-    body.dark .card {
-      background: #1e1e1e;
-    }
-
-    .card span {
-      font-size: 22px;
-    }
-
-    .card small {
-      display: block;
-      font-size: 12px;
-      margin-top: 5px;
-    }
+    .card span { font-size: 22px; }
+    .card small { display:block; margin-top:6px; }
 
     h2 {
-      padding: 0 10px;
+      padding-left: 12px;
       color: var(--green);
     }
 
-    /* ✅ ACTION CARDS */
+    /* ✅ ACTION */
     .action-card {
+      margin: 10px;
+      padding: 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 10px;
-      padding: 14px;
       border-radius: 16px;
-      background: var(--card);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      background: white;
       cursor: pointer;
-    }
-
-    body.dark .action-card {
-      background: #1e1e1e;
     }
 
     .action-left {
@@ -114,21 +98,15 @@
       gap: 10px;
     }
 
-    .action-info {
-      display: flex;
-      flex-direction: column;
+    .small-logo {
+      width: 30px;
+      height: 30px;
     }
 
-    .action-name {
-      font-weight: 600;
-    }
+    .action-name { font-weight:600; }
+    .action-desc { font-size:12px; color:gray; }
 
-    .action-desc {
-      font-size: 12px;
-      color: gray;
-    }
-
-    /* ✅ BOTTOM NAV */
+    /* ✅ NAV */
     .bottom-bar {
       position: fixed;
       bottom: 0;
@@ -138,10 +116,6 @@
       background: white;
       padding: 10px 0;
       border-top: 1px solid #ddd;
-    }
-
-    body.dark .bottom-bar {
-      background: #1e1e1e;
     }
 
     .bottom-bar div {
@@ -163,108 +137,88 @@
 <div class="header">
   <div class="logo-wrap">
     <img src="utkalgreenexlogi.png" class="logo">
-    <strong>Utkal Greenex</strong>
+    <div class="title">Utkal Greenex</div>
   </div>
   <button onclick="toggleDark()">🌙</button>
 </div>
 
 <p id="status" style="padding:10px;">Detecting location...</p>
 
-<!-- ✅ GRID -->
+<!-- ✅ MAIN GRID -->
 <div class="grid">
   <div class="card" onclick="searchPlaces('hospital')">🏥<small>Hospital</small></div>
   <div class="card" onclick="searchPlaces('pharmacy')">💊<small>Pharmacy</small></div>
   <div class="card" onclick="searchPlaces('supermarket')">🛒<small>Grocery</small></div>
   <div class="card" onclick="searchPlaces('atm')">🏧<small>ATM</small></div>
-  <div class="card" onclick="searchPlaces('bank')">₹<small>Bank</small></div>
-  <div class="card" onclick="searchPlaces('24 hour pharmacy')">🌙<small>24x7</small></div>
 </div>
 
-<!-- ✅ SOCIETY SERVICES -->
+<!-- ✅ SERVICES -->
 <h2>📢 Society Services</h2>
 
 <div class="action-card" onclick="openOhhPro()">
   <div class="action-left">
-    <img src="ohhpro.png" class="logo">
-    <div class="action-info">
-      <span class="action-name">OhhPro Junction</span>
-      <span class="action-desc">Complaints & emergencies</span>
+    <img src="ohhpro.png" class="small-logo">
+    <div>
+      <div class="action-name">OhhPro Junction</div>
+      <div class="action-desc">Complaints & emergencies</div>
     </div>
   </div>
-  ➡️
 </div>
 
 <div class="action-card" onclick="openWhatsApp()">
   <div class="action-left">
     💬
-    <div class="action-info">
-      <span class="action-name">WhatsApp Group</span>
-      <span class="action-desc">Society updates</span>
+    <div>
+      <div class="action-name">WhatsApp Group</div>
     </div>
   </div>
-  📱
 </div>
 
-<!-- ✅ ✅ DOCUMENT GRID (AFTER SERVICES ✅) -->
+<!-- ✅ DOCUMENTS -->
 <h2>📄 Documents</h2>
 
 <div class="grid">
-
-  <div class="card" onclick="openDoc('docs/bylaws/bylaws.pdf')">
-    📜
-    <small>Bylaws</small>
-  </div>
-
-  <div class="card" onclick="openDoc('docs/bylaws/meetings/2026-may.pdf')">
-    📝
-    <small>Latest MOM</small>
-  </div>
-
-  <div class="card" onclick="openDoc('docs/notices/water.pdf')">
-    📢
-    <small>Notice</small>
-  </div>
-
+  <div class="card" onclick="openDoc('docs/bylaws/bylaws.pdf')">📜<small>Bylaws</small></div>
+  <div class="card" onclick="openDoc('docs/meetings/2026-may.pdf')">📝<small>May</small></div>
+  <div class="card" onclick="openDoc('docs/meetings/2026-june.pdf')">📝<small>June</small></div>
 </div>
 
 <script>
 
 let latitude, longitude, areaName="";
 
-/* LOCATION */
+/* ✅ LOCATION + AREA */
 navigator.geolocation.getCurrentPosition(pos=>{
-  latitude=pos.coords.latitude;
-  longitude=pos.coords.longitude;
+  latitude = pos.coords.latitude;
+  longitude = pos.coords.longitude;
 
   fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
-  .then(r=>r.json()).then(d=>{
-    areaName=d.address.suburb||d.address.city;
-    document.getElementById("status").innerText="📍 "+areaName;
-  });
+    .then(r=>r.json())
+    .then(d=>{
+      areaName = d.address.suburb || d.address.city || "";
+      document.getElementById("status").innerText = "📍 " + areaName;
+    });
 });
 
-/* SEARCH */
+/* ✅ SEARCH WITH LOCATION */
 function searchPlaces(type){
-  window.open(`https://www.google.com/maps/search/${type}+near+${areaName}`);
+  if(areaName){
+    window.open(`https://www.google.com/maps/search/${type}+near+${areaName}`);
+  } else {
+    window.open(`https://www.google.com/maps/search/${type}`);
+  }
 }
 
-/* ✅ DOCUMENT DOWNLOAD */
+/* ✅ PDF VIEW (NO DOWNLOAD) */
 function openDoc(path){
-  const a=document.createElement("a");
-  a.href=path;
-  a.download="";
-  a.click();
+  window.open(path,"_blank");
 }
 
-/* ✅ APP OPEN */
+/* ✅ SMART APP OPEN */
 function openApp(type){
   const map={
     uber:["uber://","https://m.uber.com"],
     ola:["olacabs://","https://book.olacabs.com"],
-    swiggy:["swiggy://","https://swiggy.com"],
-    zomato:["zomato://","https://zomato.com"],
-    blinkit:["blinkit://","https://blinkit.com"],
-    bigbasket:["bbnow://","https://bigbasket.com"],
     ohhpro:["ohhpro://","https://apps.apple.com/se/app/ohhpro-junction/id1596785670"]
   };
 
@@ -275,27 +229,28 @@ function openApp(type){
   iframe.src=scheme;
   document.body.appendChild(iframe);
 
-  setTimeout(()=>window.location.href=fallback,1500);
+  setTimeout(()=>{
+    if(!document.hidden){
+      window.location.href=fallback;
+    }
+  },1500);
 }
 
 function openOhhPro(){openApp("ohhpro");}
 function openWhatsApp(){window.location.href="https://wa.me/";}
 
-/* DARK MODE */
+/* ✅ DARK MODE */
 function toggleDark(){
   document.body.classList.toggle("dark");
 }
 
 </script>
 
-<!-- ✅ NAV -->
+<!-- ✅ BOTTOM NAV -->
 <div class="bottom-bar">
   <div onclick="openApp('uber')">🚕<span>Uber</span></div>
   <div onclick="openApp('ola')">🚗<span>Ola</span></div>
-  <div onclick="openApp('swiggy')">🍔<span>Swiggy</span></div>
-  <div onclick="openApp('zomato')">🍕<span>Zomato</span></div>
-  <div onclick="openApp('blinkit')">🛒<span>Blinkit</span></div>
-  <div onclick="openApp('bigbasket')">🧺<span>BB</span></div>
+  <div onclick="openApp('ohhpro')">🏢<span>OhhPro</span></div>
 </div>
 
 </body>
