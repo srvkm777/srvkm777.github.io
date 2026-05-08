@@ -2,17 +2,41 @@
 <html>
 <head>
   <title>Local Yellow Pages</title>
+
+  <!-- ✅ Mobile support -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
-    body { font-family: Arial; margin: 20px; }
-    button { margin: 5px; padding: 8px; }
+    body { font-family: Arial; margin: 15px; }
+
+    h1 { text-align: center; }
+
+    button {
+      margin: 5px 0;
+      padding: 12px;
+      width: 100%;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+      background: #007bff;
+      color: white;
+    }
+
     .card {
-      padding: 10px;
+      padding: 12px;
       margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+    }
+
+    a {
+      text-decoration: none;
+      color: blue;
+      font-weight: bold;
     }
   </style>
 </head>
+
 <body>
 
 <h1>📍 Nearby Services</h1>
@@ -41,76 +65,91 @@ navigator.geolocation.getCurrentPosition(
     longitude = pos.coords.longitude;
     status.innerText = "✅ Location detected. Choose a category.";
   },
-  () => {
-    status.innerText = "❌ Please allow location access.";
+  (err) => {
+    status.innerText = "❌ Enable location to use this app.";
+    console.error(err);
   }
 );
 
-// ✅ Distance function (KM)
+// ✅ Distance function
 function getDistance(lat1, lon1, lat2, lon2) {
   const R = 6371;
   const dLat = (lat2 - lat1) * Math.PI / 180;
   const dLon = (lon2 - lon1) * Math.PI / 180;
 
   const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(lat1 * Math.PI / 180) *
-    Math.cos(lat2 * Math.PI / 180) *
-    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI/180) *
+    Math.cos(lat2 * Math.PI/180) *
+    Math.sin(dLon/2) * Math.sin(dLon/2);
 
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
-// ✅ Search nearby places (FIXED)
+// ✅ Main search function (OVERPASS - REAL NEARBY)
 function searchPlaces(type) {
+
   if (!latitude || !longitude) {
-    alert("Wait for location detection first");
+    alert("Waiting for location...");
     return;
   }
 
   status.innerText = "Searching nearby " + type + "...";
 
-  // ✅ restrict area (~5km)
-  const delta = 0.05;
-  const left = longitude - delta;
-  const right = longitude + delta;
-  const top = latitude + delta;
-  const bottom = latitude - delta;
+  const tagMap = {
+    hospital: "amenity=hospital",
+    pharmacy: "amenity=pharmacy",
+    supermarket: "shop=supermarket",
+    stationery: "shop=stationery"
+  };
 
-  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${type}&limit=15&viewbox=${left},${top},${right},${bottom}&bounded=1`;
+  const tag = tagMap[type];
+  const radius = 5000; // meters
 
-  fetch(url)
+  const query = `
+    [out:json];
+    node[${tag}](around:${radius},${latitude},${longitude});
+    out;
+  `;
+
+  fetch("https://overpass-api.de/api/interpreter", {
+    method: "POST",
+    body: query
+  })
     .then(res => res.json())
     .then(data => {
+
       resultsDiv.innerHTML = "";
 
-      if (data.length === 0) {
+      if (!data.elements || data.elements.length === 0) {
         resultsDiv.innerHTML = "No nearby results found.";
         return;
       }
 
       // ✅ sort by distance
-      data.sort((a, b) => {
+      data.elements.sort((a, b) => {
         const d1 = getDistance(latitude, longitude, a.lat, a.lon);
         const d2 = getDistance(latitude, longitude, b.lat, b.lon);
         return d1 - d2;
       });
 
-      data.forEach(place => {
+      data.elements.forEach(place => {
+
+        const name = place.tags?.name || "Unnamed place";
         const dist = getDistance(latitude, longitude, place.lat, place.lon).toFixed(2);
 
         resultsDiv.innerHTML += `
-          <div class="card">
-            <b>${place.display_name}</b><br>
-            📏 ${dist} km away<br>
-            <a href="https://www.google.com/maps?q=${},${place.lon}
-              📍 Open in Maps
-            </a>
-          </div>
-        `;
+        <div class="card">
+          <b>${name}</b><br>
+          📏 ${dist} km away<br>
+          <a href="https://www.google.com/maps?q=${place.lat},${place.lon      `;
       });
 
       status.innerText = `✅ Showing nearby ${type}`;
+    })
+    .catch(err => {
+      console.error(err);
+      status.innerText = "❌ Error fetching data. Try again.";
     });
 }
 </script>
