@@ -178,6 +178,31 @@ navigator.geolocation.getCurrentPosition(
   }
 );
 
+/* ✅ APP OPEN (FIXED) */
+function openApp(type) {
+  let scheme = "";
+  let fallback = "";
+
+  if (type === "uber") {
+    scheme = "uber://";
+    fallback = "https://m.uber.com";
+  } else if (type === "ola") {
+    scheme = "olacabs://";
+    fallback = "https://book.olacabs.com";
+  } else if (type === "swiggy") {
+    scheme = "swiggy://";
+    fallback = "https://www.swiggy.com";
+  } else if (type === "zomato") {
+    scheme = "zomato://";
+    fallback = "https://www.zomato.com";
+  } else if (type === "blinkit") {
+    scheme = "blinkit://";
+    fallback = "https://blinkit.com";
+  } else if (type === "bigbasket") {
+    scheme = "bbnow://";
+    fallback = "https://www.bigbasket.com";
+  }
+
 /* SEARCH */
 function searchPlaces(type) {
   window.open(`https://www.google.com/maps/search/${type}+near+${areaName}`);
@@ -228,6 +253,14 @@ function toggleDark() {
 }
 
 </script>
-
+<!-- ✅ BOTTOM NAV -->
+<div class="bottom-bar">
+  <div onclick="openApp('uber')">🚕<span>Uber</span></div>
+  <div onclick="openApp('ola')">🚗<span>Ola</span></div>
+  <div onclick="openApp('swiggy')">🍔<span>Swiggy</span></div>
+  <div onclick="openApp('zomato')">🍕<span>Zomato</span></div>
+  <div onclick="openApp('blinkit')">🛒<span>Blinkit</span></div>
+  <div onclick="openApp('bigbasket')">🧺<span>BB</span></div>
+</div>
 </body>
 </html>
