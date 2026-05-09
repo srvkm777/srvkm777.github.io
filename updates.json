@@ -1,31 +1,41 @@
 [
   {
+    "icon": "🎉",
+    "title": "Community Meetup",
+    "desc": "Society gathering on Sunday at 6 PM near clubhouse.",
+    "bg": "#ecfdf5",
+    "color": "#065f46"
+  },
+
+  {
+    "icon": "🚰",
+    "title": "Water Maintenance",
+    "desc": "Water supply will be interrupted from 10 AM to 1 PM.",
+    "bg": "#eff6ff",
+    "color": "#1d4ed8"
+  },
+
+  {
     "icon": "⚡",
     "title": "Power Shutdown",
-    "desc": "2–4 PM",
-    "bg": "#ffe5e5",
-    "color": "#b00020"
+    "desc": "Temporary power maintenance scheduled for Block B.",
+    "bg": "#fef3c7",
+    "color": "#92400e"
   },
-  {
-    "icon": "📢",
-    "title": "AGM",
-    "desc": "20th May",
-    "bg": "#fff3cd",
-    "color": "#856404"
-  },
+
   {
     "icon": "🧹",
     "title": "Cleaning Drive",
-    "desc": "Block B",
-    "bg": "#e6f4ea",
-    "color": "#2e7d5b"
+    "desc": "Monthly society cleaning drive this Saturday morning.",
+    "bg": "#f3e8ff",
+    "color": "#6b21a8"
   },
+
   {
-    "icon": "🚿",
-    "title": "Tank Cleaning",
-    "desc": "Tomorrow",
-    "bg": "#e3f2fd",
-    "color": "#1565c0"
+    "icon": "🚗",
+    "title": "Parking Notice",
+    "desc": "Visitor parking shifted near Gate 2 until further notice.",
+    "bg": "#fee2e2",
+    "color": "#b91c1c"
   }
 ]
-``
