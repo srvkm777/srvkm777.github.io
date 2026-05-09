@@ -24,6 +24,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
+    .gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:10px;
+}
+
+.gallery-grid img{
+  width:100%;
+  height:90px;
+  object-fit:cover;
+  border-radius:16px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.gallery-grid img:hover{
+  transform:scale(1.05);
+}
 
     :root{
 
@@ -789,6 +808,26 @@
 
   </div>
 
+  <!-- GALLERY SECTION -->
+<div class="bulletin-box" style="margin-top:20px;">
+
+  <div class="bulletin-title">
+    📷 Gallery
+  </div>
+
+  <div class="gallery-grid">
+
+    <img src="img1.jpg" onclick="openImage(this.src)">
+    <img src="img2.jpg" onclick="openImage(this.src)">
+    <img src="img3.jpg" onclick="openImage(this.src)">
+    <img src="img4.jpg" onclick="openImage(this.src)">
+    <img src="img5.jpg" onclick="openImage(this.src)">
+    <img src="img6.jpg" onclick="openImage(this.src)">
+
+  </div>
+
+</div>
+
   <!-- BOTTOM NAV -->
 
   <div class="bottom-bar">
@@ -983,6 +1022,10 @@
       navigator.serviceWorker.register('service-worker.js');
 
     }
+
+    function openImage(src){
+  window.open(src, "_blank");
+}
 
   </script>
 
