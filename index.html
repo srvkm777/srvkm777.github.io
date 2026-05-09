@@ -2,120 +2,146 @@
 <html lang="en">
 <head>
 
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 
-  <title>Utkal Greenex Directory</title>
+<title>Utkal Greenex Directory</title>
 
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#2e7d5b">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2e7d5b">
 
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Utkal Greenex">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="apple-touch-icon" href="utkalgreenexlogi.png">
+<style>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+:root{
+  --green:#2e7d5b;
+  --glass:rgba(255,255,255,0.72);
+  --text:#1f2937;
+}
 
-  <style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-    :root{
-      --green:#2e7d5b;
-      --glass:rgba(255,255,255,0.72);
-      --text:#1f2937;
-    }
+body{
+  font-family:'Inter',sans-serif;
+  background:linear-gradient(180deg,#f8fbf9,#edf4ef,#e7efe9);
+  color:var(--text);
+  min-height:100vh;
+  padding-bottom:120px;
+}
 
-    *{margin:0;padding:0;box-sizing:border-box;}
+.header{
+  position:sticky;
+  top:0;
+  z-index:999;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 22px;
+  background:linear-gradient(135deg,#2e7d5b,#3e9f73,#52bc88);
+  color:white;
+}
 
-    body{
-      font-family:'Inter',sans-serif;
-      background:linear-gradient(180deg,#f8fbf9,#edf4ef,#e7efe9);
-      color:var(--text);
-      min-height:100vh;
-      padding-bottom:120px;
-    }
+.logo{
+  width:65px;
+  height:65px;
+  border-radius:18px;
+  background:white;
+  padding:6px;
+}
 
-    .header{
-      position:sticky;
-      top:0;
-      z-index:999;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:18px 22px;
-      background:linear-gradient(135deg,#2e7d5b,#3e9f73,#52bc88);
-      color:white;
-    }
+.title{
+  font-size:22px;
+  font-weight:800;
+}
 
-    .logo{
-      width:60px;
-      height:60px;
-      border-radius:18px;
-      background:white;
-      padding:5px;
-    }
+.main-layout{
+  display:flex;
+  gap:22px;
+  padding:22px;
+}
 
-    .title{
-      font-size:22px;
-      font-weight:800;
-    }
+.left-content{flex:1;}
+.right-bulletin{width:300px;}
 
-    .main-layout{
-      display:flex;
-      gap:20px;
-      padding:20px;
-    }
+.section,.services-section,.docs-section,.bulletin-box{
+  background:var(--glass);
+  border-radius:30px;
+  padding:18px;
+  margin-bottom:20px;
+  backdrop-filter:blur(20px);
+}
 
-    .left-content{flex:1;}
-    .right-bulletin{width:300px;}
+.section-title{
+  font-size:28px;
+  font-weight:800;
+  color:var(--green);
+  margin-bottom:16px;
+}
 
-    .section,.services-section,.docs-section,.bulletin-box{
-      background:var(--glass);
-      padding:18px;
-      border-radius:28px;
-      margin-bottom:20px;
-    }
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
 
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:12px;
-    }
+.card{
+  background:white;
+  border-radius:22px;
+  padding:16px;
+  text-align:center;
+  cursor:pointer;
+}
 
-    .card{
-      background:white;
-      border-radius:20px;
-      padding:14px;
-      text-align:center;
-      cursor:pointer;
-    }
+.icon{font-size:26px;margin-bottom:8px;}
 
-    .icon{font-size:24px;margin-bottom:8px;}
+.bottom-bar{
+  position:fixed;
+  bottom:15px;
+  left:50%;
+  transform:translateX(-50%);
+  width:94%;
+  display:flex;
+  justify-content:space-around;
+  background:rgba(255,255,255,0.8);
+  border-radius:30px;
+  padding:12px;
+}
 
-    .section-title{
-      font-size:26px;
-      font-weight:800;
-      margin-bottom:14px;
-      color:var(--green);
-    }
+/* ✅ MOBILE FIX (THIS WAS MISSING BEFORE) */
+@media(max-width:960px){
+  .main-layout{
+    flex-direction:column;
+  }
 
-    .bottom-bar{
-      position:fixed;
-      bottom:15px;
-      left:50%;
-      transform:translateX(-50%);
-      width:95%;
-      display:flex;
-      justify-content:space-around;
-      background:rgba(255,255,255,0.8);
-      padding:12px;
-      border-radius:30px;
-    }
+  .right-bulletin{
+    width:100%;
+  }
 
-    .bottom-item{text-align:center;font-size:12px;}
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
 
-  </style>
+@media(max-width:480px){
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .title{
+    font-size:18px;
+  }
+
+  .card{
+    padding:12px;
+  }
+}
+
+</style>
 
 </head>
 
@@ -123,141 +149,102 @@
 
 <!-- HEADER -->
 <div class="header">
-  <div style="display:flex;align-items:center;gap:12px;">
+  <div style="display:flex;align-items:center;gap:10px;">
     <img src="utkalgreenexlogi.png" class="logo">
-    <div class="title">Utkal Greenex Directory</div>
+    <div class="title">Utkal Greenex</div>
   </div>
   <button onclick="toggleDark()">🌙</button>
 </div>
 
 <div class="main-layout">
 
-  <!-- LEFT -->
-  <div class="left-content">
+<!-- LEFT -->
+<div class="left-content">
 
-    <!-- GRID -->
-    <div class="section">
-      <div class="section-title">📍 Services</div>
+  <div class="section">
+    <div class="section-title">📍 Services</div>
 
-      <div class="grid">
-        <div class="card" onclick="searchPlaces('hospital')"><div class="icon">🏥</div>Hospital</div>
-        <div class="card" onclick="searchPlaces('pharmacy')"><div class="icon">💊</div>Pharmacy</div>
-        <div class="card" onclick="searchPlaces('restaurant')"><div class="icon">🍽️</div>Food</div>
-      </div>
+    <div class="grid">
+      <div class="card" onclick="searchPlaces('hospital')">🏥 Hospital</div>
+      <div class="card" onclick="searchPlaces('pharmacy')">💊 Pharmacy</div>
+      <div class="card" onclick="searchPlaces('restaurant')">🍽️ Food</div>
     </div>
-
-    <!-- EMERGENCY -->
-    <div class="services-section">
-      <div class="section-title">🚨 Emergency</div>
-
-      <div class="grid">
-        <div class="card" onclick="callNow('100')">👮 Police</div>
-        <div class="card" onclick="callNow('101')">🔥 Fire</div>
-        <div class="card" onclick="callNow('108')">🚑 Ambulance</div>
-      </div>
-    </div>
-
-    <!-- DAILY -->
-    <div class="services-section">
-      <div class="section-title">🛒 Daily Essentials</div>
-
-      <div class="grid">
-        <div class="card" onclick="searchPlaces('milk')">🥛 Milk</div>
-        <div class="card" onclick="searchPlaces('laundry')">🧺 Laundry</div>
-        <div class="card" onclick="searchPlaces('gas agency')">🔥 Gas</div>
-      </div>
-    </div>
-
-    <!-- RECOMMENDATIONS -->
-    <div class="services-section">
-      <div class="section-title">⭐ Recommendations</div>
-
-      <div class="grid">
-        <div class="card" onclick="callNow('9876543213')">❄️ AC Repair</div>
-        <div class="card" onclick="callNow('9876543214')">🪚 Carpenter</div>
-        <div class="card" onclick="callNow('9876543215')">🧹 House Help</div>
-      </div>
-    </div>
-
-    <!-- DOCUMENTS -->
-    <div class="docs-section">
-      <div class="section-title">📄 Documents</div>
-
-      <div class="grid">
-        <div class="card" onclick="openDoc('docs/bylaws/bylaws.pdf')">📜 Bylaws</div>
-        <div class="card" onclick="openDoc('docs/bylaws/meetings/2026-may.pdf')">📝 MoM</div>
-        <div class="card" onclick="openDoc('docs/bylaws/meetings/2026-may.pdf')">📋 Notice</div>
-      </div>
-    </div>
-
   </div>
 
-  <!-- RIGHT -->
-  <div class="right-bulletin">
+  <!-- UPDATES -->
+  <div class="services-section">
+    <div class="section-title">🔔 Updates</div>
+    <div id="updatesBox"></div>
+  </div>
 
-    <div class="bulletin-box">
-      <div class="section-title">🔔 Updates</div>
-      <div id="updatesBox"></div>
+  <!-- EMERGENCY -->
+  <div class="services-section">
+    <div class="section-title">🚨 Emergency</div>
+    <div class="grid">
+      <div class="card" onclick="callNow('100')">👮 Police</div>
+      <div class="card" onclick="callNow('101')">🔥 Fire</div>
+      <div class="card" onclick="callNow('108')">🚑 Ambulance</div>
     </div>
-
   </div>
 
 </div>
 
-<!-- BOTTOM NAV -->
+<!-- RIGHT -->
+<div class="right-bulletin">
+  <div class="bulletin-box">
+    <div class="section-title">📢 Info</div>
+    Society dashboard
+  </div>
+</div>
+
+</div>
+
+<!-- BOTTOM -->
 <div class="bottom-bar">
-  <div class="bottom-item" onclick="openApp('uber')">🚕 Uber</div>
-  <div class="bottom-item" onclick="openApp('ola')">🚗 Ola</div>
-  <div class="bottom-item" onclick="openApp('swiggy')">🍔 Swiggy</div>
-  <div class="bottom-item" onclick="openApp('zomato')">🍕 Zomato</div>
+  <div onclick="openApp('uber')">🚕 Uber</div>
+  <div onclick="openApp('ola')">🚗 Ola</div>
+  <div onclick="openApp('swiggy')">🍔 Swiggy</div>
 </div>
 
 <script>
 
+/* FIXED UPDATES */
 fetch("updates.json")
-  .then(r => r.json())
-  .then(data => {
-    const box = document.getElementById("updatesBox");
-    data.forEach(item => {
-      const div = document.createElement("div");
-      div.style.padding = "10px";
-      div.style.marginBottom = "10px";
-      div.style.borderRadius = "12px";
-      div.style.background = item.bg || "#fff";
-      div.innerHTML = `${item.icon} <b>${item.title}</b><br><small>${item.desc}</small>`;
-      box.appendChild(div);
-    });
+.then(r=>r.json())
+.then(data=>{
+  const box=document.getElementById("updatesBox");
+  data.forEach(item=>{
+    const div=document.createElement("div");
+    div.style.padding="10px";
+    div.style.marginBottom="10px";
+    div.style.borderRadius="12px";
+    div.style.background=item.bg||"#fff";
+    div.innerHTML=`${item.icon} <b>${item.title}</b><br><small>${item.desc}</small>`;
+    box.appendChild(div);
   });
+});
 
+/* FUNCTIONS */
 function searchPlaces(type){
-  const loc = "Utkal Greenex Bhubaneswar";
-  window.open(`https://www.google.com/maps/search/${encodeURIComponent(type + " near " + loc)}`);
+  const loc="Utkal Greenex Bhubaneswar";
+  window.open(`https://www.google.com/maps/search/${encodeURIComponent(type+" near "+loc)}`);
 }
 
 function callNow(num){
-  window.location.href = `tel:${num}`;
+  window.location.href=`tel:${num}`;
 }
 
-function openDoc(p){
-  window.open(p);
+function openApp(app){
+  const map={
+    uber:"https://m.uber.com",
+    ola:"https://book.olacabs.com",
+    swiggy:"https://swiggy.com"
+  };
+  window.open(map[app]);
 }
 
 function toggleDark(){
   document.body.classList.toggle("dark");
-}
-
-function openApp(app){
-  const map = {
-    uber:"https://m.uber.com",
-    ola:"https://book.olacabs.com",
-    swiggy:"https://swiggy.com",
-    zomato:"https://zomato.com"
-  };
-  window.open(map[app],"_blank");
-}
-
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('service-worker.js');
 }
 
 </script>
