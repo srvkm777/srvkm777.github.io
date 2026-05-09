@@ -134,6 +134,59 @@
       display: block;
       font-size: 10px;
     }
+
+  /* ✅ MAIN LAYOUT */
+.main-container {
+  <!-- RIGHT SIDE BULLETIN -->
+  <div class="right-panel">
+
+    <div class="bulletin-box">
+      <strong>🔔 Updates</strong>
+
+      <div id="updatesBox"></div>
+
+    </div>
+
+  </div>
+
+</div>
+}
+
+/* LEFT SIDE */
+.left-panel {
+  flex: 3;
+}
+
+/* RIGHT SIDE BULLETIN */
+.right-panel {
+  flex: 1;
+  max-width: 250px;
+}
+
+.bulletin-box {
+  background: white;
+  border-radius: 16px;
+  padding: 10px;
+  margin: 10px;
+}
+
+.bulletin-item {
+  padding: 10px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+/* ✅ MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+  }
+
+  .right-panel {
+    max-width: 100%;
+  }
+}
   </style>
 </head>
 
@@ -180,7 +233,13 @@
 </div>
 
 <!-- SEARCH GRID -->
-<div class="grid">
+<div class="main-container">
+
+  <!-- LEFT SIDE -->
+  <div class="left-panel">
+
+    <div class="grid">
+      <!-- KEEP YOUR EXISTING CARDS HERE -->
   <div class="card" onclick="searchPlaces('hospital')">🏥<small>Hospital</small></div>
   <div class="card" onclick="searchPlaces('pharmacy')">💊<small>Pharmacy</small></div>
   <div class="card" onclick="searchPlaces('supermarket')">🛒<small>Grocery</small></div>
@@ -191,6 +250,10 @@
   <div class="card" onclick="searchPlaces('chicken shop')">🍗<small>Meat</small></div>
   <div class="card" onclick="openLocation()">📍<small>Directions</small></div>
 </div>
+
+</div>
+
+  </div>
 
 
 <!-- SERVICES -->
@@ -263,7 +326,26 @@ function searchPlaces(type) {
   );
 }
 
+fetch("updates.json")
+  .then(res => res.json())
+  .then(data => {
+    const box = document.getElementById("updatesBox");
 
+    data.forEach(item => {
+      const div = document.createElement("div");
+
+      div.className = "bulletin-item";
+      div.style.background = item.bg;
+      div.style.color = item.color;
+
+      div.innerHTML = `
+        ${item.icon} ${item.title}<br>
+        <small>${item.desc}</small>
+      `;
+
+      box.appendChild(div);
+    });
+  });
 
 
 /* ✅ OPEN LOCATION */
