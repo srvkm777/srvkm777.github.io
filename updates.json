@@ -1,0 +1,31 @@
+[
+  {
+    "icon": "⚡",
+    "title": "Power Shutdown",
+    "desc": "2–4 PM",
+    "bg": "#ffe5e5",
+    "color": "#b00020"
+  },
+  {
+    "icon": "📢",
+    "title": "AGM",
+    "desc": "20th May",
+    "bg": "#fff3cd",
+    "color": "#856404"
+  },
+  {
+    "icon": "🧹",
+    "title": "Cleaning Drive",
+    "desc": "Block B",
+    "bg": "#e6f4ea",
+    "color": "#2e7d5b"
+  },
+  {
+    "icon": "🚿",
+    "title": "Tank Cleaning",
+    "desc": "Tomorrow",
+    "bg": "#e3f2fd",
+    "color": "#1565c0"
+  }
+]
+``
