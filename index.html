@@ -33,6 +33,48 @@
       padding-bottom: 80px;
     }
 
+    /* ✅ BULLETIN BOARD (RIGHT SIDE) */
+.bulletin {
+  position: fixed;
+  right: 0;
+  top: 130px;
+  width: 120px;
+  height: 220px;
+  background: white;
+  border-radius: 12px 0 0 12px;
+  box-shadow: -2px 4px 8px rgba(0,0,0,0.15);
+  overflow: hidden;
+  z-index: 999;
+}
+
+.bulletin-title {
+  background: #2e7d5b;
+  color: white;
+  text-align: center;
+  font-size: 12px;
+  padding: 6px;
+}
+
+.bulletin-scroll {
+  height: 180px;
+  overflow: hidden;
+  position: relative;
+}
+
+.bulletin-content {
+  position: absolute;
+  width: 100%;
+  font-size: 12px;
+  padding: 6px;
+  line-height: 18px;
+  animation: scrollUp 12s linear infinite;
+}
+
+@keyframes scrollUp {
+  0% { top: 100%; }
+  100% { top: -100%; }
+}
+
     /* HEADER */
     .header {
       position: sticky;
@@ -163,6 +205,20 @@
   <div class="card" onclick="searchPlaces('vegetable market')">🥦<small>Veg</small></div>
   <div class="card" onclick="searchPlaces('chicken shop')">🍗<small>Meat</small></div>
   <div class="card" onclick="openLocation()">📍<small>Directions</small></div>
+</div>
+
+<!-- ✅ BULLETIN BOARD -->
+<div class="bulletin">
+  <div class="bulletin-title">🔔 Updates</div>
+  <div class="bulletin-scroll">
+    <div class="bulletin-content">
+      🚧 Water maintenance Sunday<br>
+      ⚡ Power shutdown 2–4PM<br>
+      📢 AGM on 20th May<br>
+      🧹 Cleaning drive – Block B<br>
+      🚿 Tank cleaning tomorrow<br>
+    </div>
+  </div>
 </div>
 
 <!-- SERVICES -->
