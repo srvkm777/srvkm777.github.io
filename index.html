@@ -857,11 +857,18 @@
 
     function searchPlaces(type){
 
-      window.open(
-        `https://www.google.com/maps/@20.2469,85.8189,17z/search/${encodeURIComponent(type)}`
-      );
+  const apartmentLocation =
+    "Utkal Greenex Apartment Sunderpada Bhubaneswar";
 
-    }
+  const query =
+    `${type} near ${apartmentLocation}`;
+
+  window.open(
+    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`,
+    "_blank"
+  );
+
+}
 
     /* LOCATION */
 
