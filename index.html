@@ -33,47 +33,6 @@
       padding-bottom: 80px;
     }
 
-    /* ✅ BULLETIN BOARD (RIGHT SIDE) */
-.bulletin {
-  position: fixed;
-  right: 0;
-  top: 130px;
-  width: 120px;
-  height: 220px;
-  background: white;
-  border-radius: 12px 0 0 12px;
-  box-shadow: -2px 4px 8px rgba(0,0,0,0.15);
-  overflow: hidden;
-  z-index: 999;
-}
-
-.bulletin-title {
-  background: #2e7d5b;
-  color: white;
-  text-align: center;
-  font-size: 12px;
-  padding: 6px;
-}
-
-.bulletin-scroll {
-  height: 180px;
-  overflow: hidden;
-  position: relative;
-}
-
-.bulletin-content {
-  position: absolute;
-  width: 100%;
-  font-size: 12px;
-  padding: 6px;
-  line-height: 18px;
-  animation: scrollUp 12s linear infinite;
-}
-
-@keyframes scrollUp {
-  0% { top: 100%; }
-  100% { top: -100%; }
-}
 
     /* HEADER */
     .header {
@@ -194,6 +153,32 @@
 📍 Utkal Greenex,Sunderpada,Bhubaneswar
 </p>
 
+<h2>🔔 Important Updates</h2>
+
+<div class="grid">
+
+  <div class="card" style="background:#ffe5e5;color:#b00020;">
+    ⚡ Power Shutdown
+    <small>2–4 PM</small>
+  </div>
+
+  <div class="card" style="background:#fff3cd;color:#856404;">
+    📢 AGM
+    <small>20th May</small>
+  </div>
+
+  <div class="card" style="background:#e6f4ea;color:#2e7d5b;">
+    🧹 Cleaning Drive
+    <small>Block B</small>
+  </div>
+
+  <div class="card" style="background:#e3f2fd;color:#1565c0;">
+    🚿 Tank Cleaning
+    <small>Tomorrow</small>
+  </div>
+
+</div>
+
 <!-- SEARCH GRID -->
 <div class="grid">
   <div class="card" onclick="searchPlaces('hospital')">🏥<small>Hospital</small></div>
@@ -207,19 +192,6 @@
   <div class="card" onclick="openLocation()">📍<small>Directions</small></div>
 </div>
 
-<!-- ✅ BULLETIN BOARD -->
-<div class="bulletin">
-  <div class="bulletin-title">🔔 Updates</div>
-  <div class="bulletin-scroll">
-    <div class="bulletin-content">
-      🚧 Water maintenance Sunday<br>
-      ⚡ Power shutdown 2–4PM<br>
-      📢 AGM on 20th May<br>
-      🧹 Cleaning drive – Block B<br>
-      🚿 Tank cleaning tomorrow<br>
-    </div>
-  </div>
-</div>
 
 <!-- SERVICES -->
 <h2>📢 Society Services</h2>
