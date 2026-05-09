@@ -1,513 +1,628 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  
-<div class="action-card" onclick="installApp()">
-  <div class="action-left">
-    📲 Install App
-  </div>
-</div>
+  <title>Utkal Greenex Directory</title>
 
-  
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#2e7d5b"> 
+  <meta name="theme-color" content="#2e7d5b">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <link rel="apple-touch-icon" href="utkalgreenexlogi.png">
 
-
-  <title>Utkal Greenex</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <style>
-    :root {
-      --green: #2e7d5b;
-      --light: #f4f7f5;
+    :root{
+      --green:#2f8a63;
+      --green2:#41a875;
+      --bg:#f1f3f2;
+      --card:#ffffff;
+      --text:#222;
+      --shadow:0 4px 12px rgba(0,0,0,0.06);
+      --radius:18px;
     }
 
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--light);
-      padding-bottom: 80px;
+    *{
+      box-sizing:border-box;
     }
 
+    body{
+      margin:0;
+      background:#000;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--text);
+      padding-bottom:90px;
+    }
 
     /* HEADER */
-    .header {
-      position: sticky;
-      top: 0;
-      padding: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: linear-gradient(135deg, #2e7d5b, #3ea97c);
-      color: white;
+    .header{
+      background:linear-gradient(135deg,var(--green),var(--green2));
+      padding:22px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      color:white;
+      border-bottom:4px solid #dcdcdc;
     }
 
-    .logo-wrap {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .logo-wrap{
+      display:flex;
+      align-items:center;
+      gap:14px;
     }
 
-    .logo {
-      width: 55px;
-      height: 55px;
-      border-radius: 12px;
-      background: white;
-      padding: 4px;
+    .logo{
+      width:72px;
+      height:72px;
+      border-radius:18px;
+      background:white;
+      object-fit:contain;
+      padding:6px;
     }
 
-    .title {
-      font-size: 22px;
-      font-weight: 700;
+    .title{
+      font-size:24px;
+      font-weight:700;
+    }
+
+    .theme-btn{
+      width:38px;
+      height:38px;
+      border:none;
+      border-radius:10px;
+      background:#ffffffd8;
+      cursor:pointer;
+      font-size:18px;
+    }
+
+    /* MAIN */
+    .main-layout{
+      display:flex;
+      gap:22px;
+      align-items:flex-start;
+      padding:16px;
+    }
+
+    .left-content{
+      flex:1;
+    }
+
+    .right-bulletin{
+      width:280px;
+    }
+
+    .section{
+      background:#efefef;
+      border-radius:0;
+      padding:10px;
+    }
+
+    .location{
+      font-size:15px;
+      margin:6px 0 14px;
+      color:#222;
     }
 
     /* GRID */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      padding: 12px;
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
     }
 
-    .card {
-      background: white;
-      padding: 14px;
-      border-radius: 16px;
-      text-align: center;
-      cursor: pointer;
+    .card{
+      background:white;
+      border-radius:16px;
+      min-height:92px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      transition:0.2s;
+      box-shadow:0 1px 2px rgba(0,0,0,0.03);
     }
 
-    .card span { font-size: 22px; }
-    .card small { display:block; margin-top:6px; }
-
-    h2 {
-      padding-left: 12px;
-      color: var(--green);
+    .card:hover{
+      transform:translateY(-2px);
     }
 
-    /* ACTION CARDS */
-    .action-card {
-      margin: 10px;
-      padding: 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-radius: 16px;
-      background: white;
-      cursor: pointer;
+    .card .icon{
+      font-size:20px;
+      margin-bottom:8px;
     }
 
-    .action-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .card small{
+      font-size:14px;
+      font-weight:500;
     }
 
-    .small-logo {
-      width: 30px;
-      height: 30px;
+    /* BULLETIN */
+    .bulletin-box{
+      background:#f4f4f4;
+      border-radius:22px;
+      padding:16px;
+      box-shadow:var(--shadow);
     }
 
-    /* BOTTOM NAV */
-    .bottom-bar {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-      background: white;
-      padding: 10px 0;
-      border-top: 1px solid #ddd;
+    .bulletin-title{
+      font-size:18px;
+      font-weight:700;
+      margin-bottom:12px;
     }
 
-    .bottom-bar div {
-      text-align: center;
-      font-size: 12px;
-      cursor: pointer;
+    .bulletin-item{
+      background:white;
+      border-radius:14px;
+      padding:12px;
+      margin-bottom:10px;
+      font-size:14px;
     }
 
-    .bottom-bar span {
-      display: block;
-      font-size: 10px;
+    /* SECTION HEADINGS */
+    .section-title{
+      background:#efefef;
+      color:var(--green);
+      font-size:28px;
+      font-weight:800;
+      padding:18px 16px;
+      margin-top:30px;
     }
 
-  /* ✅ MAIN LAYOUT */
-.main-container {
-  <!-- RIGHT SIDE BULLETIN -->
-  <div class="right-panel">
+    /* ACTION LIST */
+    .action-wrapper{
+      background:#efefef;
+      padding:0 0 10px;
+    }
 
-    <div class="bulletin-box">
-      <strong>🔔 Updates</strong>
+    .action-card{
+      background:#f9f9f9;
+      margin:12px;
+      border-radius:18px;
+      padding:18px;
+      display:flex;
+      align-items:center;
+      cursor:pointer;
+    }
 
-      <div id="updatesBox"></div>
+    .action-left{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      font-size:18px;
+      font-weight:500;
+    }
 
-    </div>
+    .small-logo{
+      width:38px;
+      height:38px;
+      border-radius:50%;
+    }
 
-  </div>
+    /* DOCUMENTS */
+    .doc-section{
+      background:#efefef;
+      padding-bottom:16px;
+      margin-top:20px;
+    }
 
-</div>
-}
+    .docs-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      padding:0 14px 14px;
+    }
 
-/* LEFT SIDE */
-.left-panel {
-  flex: 3;
-}
+    /* INSTALL */
+    .install-card{
+      margin:12px;
+      background:white;
+      border-radius:18px;
+      padding:16px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      font-weight:600;
+    }
 
-/* RIGHT SIDE BULLETIN */
-.right-panel {
-  flex: 1;
-  max-width: 250px;
-}
+    /* BOTTOM BAR */
+    .bottom-bar{
+      position:fixed;
+      bottom:0;
+      left:0;
+      width:100%;
+      background:#efefef;
+      border-top:1px solid #d7d7d7;
+      display:flex;
+      justify-content:space-around;
+      padding:14px 0 10px;
+      z-index:999;
+    }
 
-.bulletin-box {
-  background: white;
-  border-radius: 16px;
-  padding: 10px;
-  margin: 10px;
-}
+    .bottom-item{
+      text-align:center;
+      cursor:pointer;
+      font-size:13px;
+      font-weight:500;
+    }
 
-.bulletin-item {
-  padding: 10px;
-  border-radius: 12px;
-  margin-bottom: 8px;
-  font-size: 13px;
-}
+    .bottom-item .emoji{
+      font-size:20px;
+      margin-bottom:4px;
+      display:block;
+    }
 
-/* ✅ MOBILE RESPONSIVE */
-@media (max-width: 768px) {
-  .main-container {
-    flex-direction: column;
-  }
+    /* MOBILE */
+    @media(max-width:900px){
 
-  .right-panel {
-    max-width: 100%;
-  }
-}
+      .main-layout{
+        flex-direction:column;
+      }
 
-/* ✅ SIDE LAYOUT */
-.main-layout {
-  display: flex;
-  align-items: flex-start;
-}
+      .right-bulletin{
+        width:100%;
+      }
 
-/* LEFT */
-.left-content {
-  flex: 3;
-}
+      .grid,
+      .docs-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+    }
 
-/* RIGHT BULLETIN */
-.right-bulletin {
-  flex: 1;
-  max-width: 260px;
-}
+    @media(max-width:560px){
 
-.bulletin-box {
-  background: white;
-  border-radius: 16px;
-  margin: 12px;
-  padding: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-}
+      .title{
+        font-size:20px;
+      }
 
-.bulletin-title {
-  font-weight: bold;
-  margin-bottom: 10px;
-}
+      .logo{
+        width:60px;
+        height:60px;
+      }
 
-/* BULLETIN ITEMS (same card style) */
-.bulletin-item {
-  padding: 10px;
-  border-radius: 12px;
-  margin-bottom: 8px;
-  font-size: 13px;
-}
+      .grid,
+      .docs-grid{
+        grid-template-columns:1fr 1fr;
+      }
 
-/* ✅ MOBILE FALLBACK */
-@media (max-width: 768px) {
-  .main-layout {
-    flex-direction: column;
-  }
+      .section-title{
+        font-size:22px;
+      }
 
-  .right-bulletin {
-    max-width: 100%;
-  }
-}
+      .card{
+        min-height:84px;
+      }
+    }
 
+    /* DARK MODE */
+    body.dark{
+      background:#111;
+    }
+
+    body.dark .section,
+    body.dark .section-title,
+    body.dark .action-wrapper,
+    body.dark .doc-section,
+    body.dark .bottom-bar{
+      background:#1c1c1c;
+      color:white;
+    }
+
+    body.dark .card,
+    body.dark .action-card,
+    body.dark .bulletin-box{
+      background:#262626;
+      color:white;
+    }
   </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<div class="header">
-  <div class="logo-wrap">
-    <img src="utkalgreenexlogi.png" class="logo">
-    <div class="title">Utkal Greenex Directory</div>
-  </div>
-  <button onclick="toggleDark()">🌙</button>
-</div>
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo-wrap">
+      <img src="utkalgreenexlogi.png" class="logo">
+      <div class="title">Utkal Greenex Directory</div>
+    </div>
 
-<!-- STATIC LOCATION -->
-<p style="padding:10px;">
-📍 Utkal Greenex,Sunderpada,Bhubaneswar
-</p>
-
-
-
-<!-- SEARCH GRID -->
-<div class="main-container">
-
-  <!-- LEFT SIDE -->
-  <div class="left-panel">
-
-    
-<div class="main-layout">
-
-  <!-- LEFT SIDE -->
-  <div class="left-content">
-
-    <div class="grid">
-
-      <!-- KEEP YOUR EXISTING CARDS HERE -->
-  <div class="card" onclick="searchPlaces('hospital')">🏥<small>Hospital</small></div>
-  <div class="card" onclick="searchPlaces('pharmacy')">💊<small>Pharmacy</small></div>
-  <div class="card" onclick="searchPlaces('supermarket')">🛒<small>Grocery</small></div>
-  <div class="card" onclick="searchPlaces('atm')">🏧<small>ATM</small></div>
-  <div class="card" onclick="searchPlaces('bank')">₹<small>Bank</small></div>
-  <div class="card" onclick="searchPlaces('restaurant')">🍽<small>Food</small></div>
-  <div class="card" onclick="searchPlaces('vegetable market')">🥦<small>Veg</small></div>
-  <div class="card" onclick="searchPlaces('chicken shop')">🍗<small>Meat</small></div>
-  <div class="card" onclick="openLocation()">📍<small>Directions</small></div>
-</div>
-
-</div>
-
+    <button class="theme-btn" onclick="toggleDark()">🌙</button>
   </div>
 
-</div>
+  <!-- MAIN -->
+  <div class="main-layout">
 
-  </div>
-<!-- RIGHT SIDE BULLETIN -->
-  <div class="right-bulletin">
+    <!-- LEFT -->
+    <div class="left-content">
 
-    <div class="bulletin-box">
-      <div class="bulletin-title">🔔 Updates</div>
+      <div class="section">
 
-      <div id="updatesBox"></div>
+        <div class="location">
+          📍 Utkal Greenex,Sunderpada,Bhubaneswar
+        </div>
+
+        <div class="grid">
+
+          <div class="card" onclick="searchPlaces('hospital')">
+            <div class="icon">🏥</div>
+            <small>Hospital</small>
+          </div>
+
+          <div class="card" onclick="searchPlaces('pharmacy')">
+            <div class="icon">💊</div>
+            <small>Pharmacy</small>
+          </div>
+
+          <div class="card" onclick="searchPlaces('supermarket')">
+            <div class="icon">🛒</div>
+            <small>Grocery</small>
+          </div>
+
+          <div class="card" onclick="searchPlaces('atm')">
+            <div class="icon">🏧</div>
+            <small>ATM</small>
+          </div>
+
+          <div class="card" onclick="searchPlaces('bank')">
+            <div class="icon">₹</div>
+            <small>Bank</small>
+          </div>
+
+          <div class="card" onclick="searchPlaces('restaurant')">
+            <div class="icon">🍽</div>
+            <small>Food</small>
+          </div>
+
+          <div class="card" onclick="searchPlaces('vegetable market')">
+            <div class="icon">🥦</div>
+            <small>Veg</small>
+          </div>
+
+          <div class="card" onclick="searchPlaces('chicken shop')">
+            <div class="icon">🍗</div>
+            <small>Meat</small>
+          </div>
+
+          <div class="card" onclick="openLocation()">
+            <div class="icon">📍</div>
+            <small>Directions</small>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right-bulletin">
+
+      <div class="bulletin-box">
+        <div class="bulletin-title">🔔 Updates</div>
+
+        <div id="updatesBox"></div>
+      </div>
 
     </div>
 
   </div>
 
-</div>
+  <!-- SERVICES -->
+  <div class="section-title">📢 Society Services</div>
 
+  <div class="action-wrapper">
 
-<!-- SERVICES -->
-<h2>📢 Society Services</h2>
+    <div class="action-card" onclick="openOhhPro()">
+      <div class="action-left">
+        <img src="ohhpro.png" class="small-logo">
+        <div>OhhPro Junction</div>
+      </div>
+    </div>
 
-<div class="action-card" onclick="openOhhPro()">
-  <div class="action-left">
-    <img src="ohhpro.png" class="small-logo">
-    <div>OhhPro Junction</div>
+    <div class="action-card" onclick="openWhatsApp()">
+      <div class="action-left">
+        💬 WhatsApp Group
+      </div>
+    </div>
+
+    <div class="action-card" onclick="openSuggestion()">
+      <div class="action-left">
+        💡 Suggest Improvement
+      </div>
+    </div>
+
   </div>
-</div>
 
-<div class="action-card" onclick="openWhatsApp()">
-  <div class="action-left">
-    💬 WhatsApp Group
+  <!-- DOCUMENTS -->
+  <div class="doc-section">
+
+    <div class="section-title">📄 Documents</div>
+
+    <div class="docs-grid">
+
+      <div class="card" onclick="openDoc('docs/bylaws/bylaws.pdf')">
+        <div class="icon">📜</div>
+        <small>Bylaws</small>
+      </div>
+
+      <div class="card" onclick="openDoc('docs/bylaws/meetings/2026-may.pdf')">
+        <div class="icon">📝</div>
+        <small>Latest MoM</small>
+      </div>
+
+      <div class="card" onclick="openDoc('docs/bylaws/meetings/2026-may.pdf')">
+        <div class="icon">📝</div>
+        <small>Notice</small>
+      </div>
+
+    </div>
+
   </div>
-</div>
 
-<div class="action-card" onclick="openSuggestion()">
-  <div class="action-left">
-    💡 Suggest Improvement
+  <!-- INSTALL -->
+  <div class="install-card" onclick="installApp()">
+    📲 Install App
   </div>
-</div>
 
-<!-- DOCUMENTS -->
-<h2>📄 Documents</h2>
+  <!-- BOTTOM NAV -->
+  <div class="bottom-bar">
 
-<div class="grid">
-  <div class="card" onclick="openDoc('docs/bylaws/bylaws.pdf')">📜<small>Bylaws</small></div>
-  <div class="card" onclick="openDoc('docs/bylaws/meetings/2026-may.pdf')">📝<small>Latest MoM</small></div>
-  <div class="card" onclick="openDoc('docs/bylaws/meetings/2026-may.pdf')">📝<small>Notice</small></div>
-</div>
+    <div class="bottom-item" onclick="openApp('uber')">
+      <span class="emoji">🚕</span>
+      Uber
+    </div>
 
-<script>
+    <div class="bottom-item" onclick="openApp('ola')">
+      <span class="emoji">🚗</span>
+      Ola
+    </div>
 
-fetch("updates.json")
-  .then(res => res.json())
-  .then(data => {
-    const box = document.getElementById("updatesBox");
+    <div class="bottom-item" onclick="openApp('swiggy')">
+      <span class="emoji">🍔</span>
+      Swiggy
+    </div>
 
-    data.forEach(item => {
-      const div = document.createElement("div");
+    <div class="bottom-item" onclick="openApp('zomato')">
+      <span class="emoji">🍕</span>
+      Zomato
+    </div>
 
-      div.className = "bulletin-item";
-      div.style.background = item.bg;
-      div.style.color = item.color;
+    <div class="bottom-item" onclick="openApp('blinkit')">
+      <span class="emoji">🛒</span>
+      Blinkit
+    </div>
 
-      div.innerHTML = `
-        ${item.icon} ${item.title}<br>
-        <small>${item.desc}</small>
-      `;
+  </div>
 
-      box.appendChild(div);
+  <script>
+
+    /* LOAD UPDATES */
+    fetch("updates.json")
+      .then(res => res.json())
+      .then(data => {
+
+        const box = document.getElementById("updatesBox");
+
+        data.forEach(item => {
+
+          const div = document.createElement("div");
+
+          div.className = "bulletin-item";
+
+          div.innerHTML = `
+            ${item.icon} <strong>${item.title}</strong><br>
+            <small>${item.desc}</small>
+          `;
+
+          box.appendChild(div);
+
+        });
+
+      });
+
+    /* INSTALL APP */
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
     });
-  });
 
+    function installApp() {
 
-/*Insstall app*/
-let deferredPrompt;
+      if (deferredPrompt) {
 
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  console.log("✅ Install event captured");
-});
+        deferredPrompt.prompt();
 
-function installApp() {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => {
+          deferredPrompt = null;
+        });
 
-    deferredPrompt.userChoice.then((choice) => {
-      if (choice.outcome === 'accepted') {
-        console.log('✅ User installed');
       } else {
-        console.log('❌ User dismissed');
+
+        alert("Install option not available yet.");
+
       }
-      deferredPrompt = null;
-    });
-
-  } else {
-    alert("Install option not ready. Try refreshing the page.");
-  }
-}
-  
-/* ✅ BETTER MAP SEARCH (MULTIPLE RESULTS) */
-
-
-
-function searchPlaces(type) {
-  window.open(
-    `https://www.google.com/maps/@20.2469,85.8189,17z/search/${encodeURIComponent(type)}`
-  );
-}
-
-fetch("updates.json")
-  .then(res => res.json())
-  .then(data => {
-    const box = document.getElementById("updatesBox");
-
-    data.forEach(item => {
-      const div = document.createElement("div");
-
-      div.className = "bulletin-item";
-      div.style.background = item.bg;
-      div.style.color = item.color;
-
-      div.innerHTML = `
-        ${item.icon} ${item.title}<br>
-        <small>${item.desc}</small>
-      `;
-
-      box.appendChild(div);
-    });
-  });
-
-
-/* ✅ OPEN LOCATION */
-function openLocation(){
-  window.open("https://maps.app.goo.gl/urxJ4ayd5iEdCkiS9");
-}
-
-/* ✅ OPEN DOC */
-function openDoc(path){
-  window.open(path, "_blank");
-}
-
-/* ✅ APP OPEN */
-function openApp(type){
-  const map={
-    uber:["uber://","https://m.uber.com"],
-    ola:["olacabs://","https://book.olacabs.com"],
-    swiggy:["swiggy://","https://www.swiggy.com"],
-    zomato:["zomato://","https://www.zomato.com"],
-    blinkit:["blinkit://","https://blinkit.com"],
-    ohhpro:["ohhpro://","https://apps.apple.com/se/app/ohhpro-junction/id1596785670"]
-  };
-
-  const [scheme,fallback]=map[type];
-
-  const iframe=document.createElement("iframe");
-  iframe.style.display="none";
-  iframe.src=scheme;
-  document.body.appendChild(iframe);
-
-  setTimeout(()=>{
-    if(!document.hidden){
-      window.location.href=fallback;
     }
-  },1500);
-}
 
-function openOhhPro(){openApp("ohhpro");}
+    /* SEARCH */
+    function searchPlaces(type) {
 
-function openWhatsApp(){
-  window.location.href="https://wa.me/";
-}
+      window.open(
+        `https://www.google.com/maps/@20.2469,85.8189,17z/search/${encodeURIComponent(type)}`
+      );
 
-/* ✅ SUGGESTION FUNCTION (ADDED BACK ✅) */
-function openSuggestion() {
-  window.open("https://docs.google.com/forms/d/e/1FAIpQLSeTnjEctE_DHkD5IZjsq7ukjiwVuckEDHlOizHf9352blUzSg/viewform?usp=publish-editor");
-}
+    }
 
-function toggleDark(){
-  document.body.classList.toggle("dark");
-}
+    /* LOCATION */
+    function openLocation(){
+      window.open("https://maps.app.goo.gl/urxJ4ayd5iEdCkiS9");
+    }
 
+    /* DOCS */
+    function openDoc(path){
+      window.open(path, "_blank");
+    }
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js');
-}
+    /* APP LINKS */
+    function openApp(type){
 
-  /* ✅ LOAD BULLETIN FROM JSON */
-fetch("updates.json")
-  .then(res => res.json())
-  .then(data => {
-    const container = document.getElementById("updatesGrid");
+      const map = {
 
-    data.forEach(item => {
-      const card = document.createElement("div");
-      card.className = "card";
+        uber:["uber://","https://m.uber.com"],
+        ola:["olacabs://","https://book.olacabs.com"],
+        swiggy:["swiggy://","https://www.swiggy.com"],
+        zomato:["zomato://","https://www.zomato.com"],
+        blinkit:["blinkit://","https://blinkit.com"],
+        ohhpro:["ohhpro://","https://apps.apple.com/se/app/ohhpro-junction/id1596785670"]
 
-      card.style.background = item.bg;
-      card.style.color = item.color;
+      };
 
-      card.innerHTML = `
-        ${item.icon} ${item.title}
-        <small>${item.desc}</small>
-      `;
+      const [scheme,fallback] = map[type];
 
-      container.appendChild(card);
-    });
-  });
+      const iframe = document.createElement("iframe");
+      iframe.style.display = "none";
+      iframe.src = scheme;
 
+      document.body.appendChild(iframe);
 
-</script>
+      setTimeout(()=>{
 
-<!-- ✅ FULL APP NAV RESTORED -->
-<div class="bottom-bar">
-  <div onclick="openApp('uber')">🚕<span>Uber</span></div>
-  <div onclick="openApp('ola')">🚗<span>Ola</span></div>
-  <div onclick="openApp('swiggy')">🍔<span>Swiggy</span></div>
-  <div onclick="openApp('zomato')">🍕<span>Zomato</span></div>
-  <div onclick="openApp('blinkit')">🛒<span>Blinkit</span></div>
-</div>
+        if(!document.hidden){
+          window.location.href = fallback;
+        }
+
+      },1500);
+    }
+
+    function openOhhPro(){
+      openApp("ohhpro");
+    }
+
+    function openWhatsApp(){
+      window.location.href="https://wa.me/";
+    }
+
+    function openSuggestion(){
+
+      window.open(
+        "https://docs.google.com/forms/d/e/1FAIpQLSeTnjEctE_DHkD5IZjsq7ukjiwVuckEDHlOizHf9352blUzSg/viewform?usp=publish-editor"
+      );
+
+    }
+
+    /* DARK MODE */
+    function toggleDark(){
+      document.body.classList.toggle("dark");
+    }
+
+    /* SERVICE WORKER */
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+
+  </script>
 
 </body>
 </html>
