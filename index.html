@@ -1,87 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 
   <title>Utkal Greenex Directory</title>
 
+  <!-- PWA -->
   <link rel="manifest" href="manifest.json">
+
   <meta name="theme-color" content="#2e7d5b">
+
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="apple-mobile-web-app-title" content="Utkal Greenex">
+
   <link rel="apple-touch-icon" href="utkalgreenexlogi.png">
 
+  <!-- FONT -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
+
     :root{
-      --green:#2f8a63;
-      --green2:#41a875;
-      --bg:#f1f3f2;
-      --card:#ffffff;
-      --text:#222;
-      --shadow:0 4px 12px rgba(0,0,0,0.06);
-      --radius:18px;
+
+      --green:#2e7d5b;
+
+      --green2:#49b07d;
+
+      --bg:#edf4ef;
+
+      --text:#1f2937;
+
+      --muted:#6b7280;
+
+      --glass:rgba(255,255,255,0.72);
+
+      --shadow:
+        0 12px 30px rgba(0,0,0,0.06);
+
+      --radius:30px;
     }
 
     *{
+      margin:0;
+      padding:0;
       box-sizing:border-box;
+      -webkit-tap-highlight-color:transparent;
     }
 
     body{
-      margin:0;
-      background:#000;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+
+      font-family:'Inter',sans-serif;
+
+      background:
+        linear-gradient(
+          180deg,
+          #f8fbf9 0%,
+          #edf4ef 45%,
+          #e7efe9 100%
+        );
+
       color:var(--text);
-      padding-bottom:90px;
+
+      min-height:100vh;
+
+      padding-bottom:120px;
+
+      overflow-x:hidden;
     }
 
     /* HEADER */
+
     .header{
-      background:linear-gradient(135deg,var(--green),var(--green2));
-      padding:22px 20px;
+
+      position:sticky;
+
+      top:0;
+
+      z-index:999;
+
       display:flex;
+
       align-items:center;
+
       justify-content:space-between;
-      color:white;
-      border-bottom:4px solid #dcdcdc;
+
+      padding:
+        max(18px,env(safe-area-inset-top))
+        22px
+        18px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #2e7d5b 0%,
+          #3e9f73 50%,
+          #52bc88 100%
+        );
+
+      box-shadow:
+        0 14px 30px rgba(46,125,91,0.22);
+
+      backdrop-filter:blur(16px);
     }
 
     .logo-wrap{
+
       display:flex;
+
       align-items:center;
+
       gap:14px;
     }
 
     .logo{
+
       width:72px;
+
       height:72px;
-      border-radius:18px;
+
+      border-radius:22px;
+
       background:white;
+
       object-fit:contain;
+
       padding:6px;
+
+      box-shadow:
+        0 10px 24px rgba(0,0,0,0.14);
     }
 
     .title{
+
+      color:white;
+
       font-size:24px;
-      font-weight:700;
+
+      font-weight:800;
+
+      line-height:1.2;
+
+      letter-spacing:-0.4px;
     }
 
     .theme-btn{
-      width:38px;
-      height:38px;
+
+      width:44px;
+
+      height:44px;
+
       border:none;
-      border-radius:10px;
-      background:#ffffffd8;
-      cursor:pointer;
+
+      border-radius:14px;
+
+      background:rgba(255,255,255,0.18);
+
+      color:white;
+
       font-size:18px;
+
+      cursor:pointer;
+
+      backdrop-filter:blur(10px);
     }
 
     /* MAIN */
+
     .main-layout{
+
       display:flex;
+
       gap:22px;
+
       align-items:flex-start;
-      padding:16px;
+
+      padding:22px;
     }
 
     .left-content{
@@ -89,172 +187,365 @@
     }
 
     .right-bulletin{
-      width:280px;
+      width:300px;
     }
 
-    .section{
-      background:#efefef;
-      border-radius:0;
-      padding:10px;
+    /* PREMIUM SECTIONS */
+
+    .section,
+    .services-section,
+    .docs-section{
+
+      background:var(--glass);
+
+      backdrop-filter:blur(24px);
+
+      border-radius:32px;
+
+      padding:18px;
+
+      border:
+        1px solid rgba(255,255,255,0.72);
+
+      box-shadow:
+        0 10px 40px rgba(0,0,0,0.05),
+        inset 0 1px 0 rgba(255,255,255,0.7);
+
+      margin-bottom:24px;
     }
 
     .location{
+
+      display:flex;
+
+      align-items:center;
+
+      gap:8px;
+
       font-size:15px;
-      margin:6px 0 14px;
-      color:#222;
+
+      font-weight:600;
+
+      margin-bottom:18px;
+
+      color:#374151;
     }
 
     /* GRID */
+
     .grid{
+
       display:grid;
+
       grid-template-columns:repeat(3,1fr);
-      gap:12px;
-    }
 
-    .card{
-      background:white;
-      border-radius:16px;
-      min-height:92px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-      transition:0.2s;
-      box-shadow:0 1px 2px rgba(0,0,0,0.03);
-    }
-
-    .card:hover{
-      transform:translateY(-2px);
-    }
-
-    .card .icon{
-      font-size:20px;
-      margin-bottom:8px;
-    }
-
-    .card small{
-      font-size:14px;
-      font-weight:500;
-    }
-
-    /* BULLETIN */
-    .bulletin-box{
-      background:#f4f4f4;
-      border-radius:22px;
-      padding:16px;
-      box-shadow:var(--shadow);
-    }
-
-    .bulletin-title{
-      font-size:18px;
-      font-weight:700;
-      margin-bottom:12px;
-    }
-
-    .bulletin-item{
-      background:white;
-      border-radius:14px;
-      padding:12px;
-      margin-bottom:10px;
-      font-size:14px;
-    }
-
-    /* SECTION HEADINGS */
-    .section-title{
-      background:#efefef;
-      color:var(--green);
-      font-size:28px;
-      font-weight:800;
-      padding:18px 16px;
-      margin-top:30px;
-    }
-
-    /* ACTION LIST */
-    .action-wrapper{
-      background:#efefef;
-      padding:0 0 10px;
-    }
-
-    .action-card{
-      background:#f9f9f9;
-      margin:12px;
-      border-radius:18px;
-      padding:18px;
-      display:flex;
-      align-items:center;
-      cursor:pointer;
-    }
-
-    .action-left{
-      display:flex;
-      align-items:center;
       gap:14px;
-      font-size:18px;
-      font-weight:500;
-    }
-
-    .small-logo{
-      width:38px;
-      height:38px;
-      border-radius:50%;
-    }
-
-    /* DOCUMENTS */
-    .doc-section{
-      background:#efefef;
-      padding-bottom:16px;
-      margin-top:20px;
     }
 
     .docs-grid{
+
       display:grid;
+
       grid-template-columns:repeat(3,1fr);
+
       gap:14px;
-      padding:0 14px 14px;
     }
 
-    /* INSTALL */
-    .install-card{
-      margin:12px;
-      background:white;
-      border-radius:18px;
-      padding:16px;
-      cursor:pointer;
+    /* CARDS */
+
+    .card{
+
+      background:
+        rgba(255,255,255,0.92);
+
+      border-radius:26px;
+
+      min-height:110px;
+
       display:flex;
+
+      flex-direction:column;
+
       align-items:center;
+
+      justify-content:center;
+
+      cursor:pointer;
+
+      transition:0.25s ease;
+
+      border:
+        1px solid rgba(255,255,255,0.8);
+
+      box-shadow:
+        0 10px 24px rgba(0,0,0,0.05),
+        inset 0 1px 0 rgba(255,255,255,0.8);
+    }
+
+    .card:hover{
+
+      transform:translateY(-4px);
+
+      box-shadow:
+        0 16px 34px rgba(46,125,91,0.14);
+    }
+
+    .card:active{
+      transform:scale(0.98);
+    }
+
+    .card .icon{
+
+      font-size:28px;
+
+      margin-bottom:12px;
+
+      filter:
+        drop-shadow(0 4px 10px rgba(0,0,0,0.1));
+    }
+
+    .card small{
+
+      font-size:14px;
+
       font-weight:600;
     }
 
-    /* BOTTOM BAR */
-    .bottom-bar{
-      position:fixed;
-      bottom:0;
-      left:0;
-      width:100%;
-      background:#efefef;
-      border-top:1px solid #d7d7d7;
+    /* BULLETIN */
+
+    .bulletin-box{
+
+      background:
+        rgba(255,255,255,0.72);
+
+      backdrop-filter:blur(24px);
+
+      border-radius:30px;
+
+      padding:20px;
+
+      border:
+        1px solid rgba(255,255,255,0.7);
+
+      box-shadow:
+        0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .bulletin-title{
+
+      font-size:22px;
+
+      font-weight:800;
+
+      margin-bottom:16px;
+    }
+
+    .bulletin-item{
+
+      border-radius:20px;
+
+      padding:14px;
+
+      margin-bottom:12px;
+
+      box-shadow:
+        0 6px 18px rgba(0,0,0,0.04);
+
+      font-size:14px;
+
+      line-height:1.5;
+    }
+
+    .bulletin-item small{
+      opacity:0.85;
+    }
+
+    /* TITLES */
+
+    .section-title{
+
+      font-size:32px;
+
+      font-weight:800;
+
+      color:var(--green);
+
+      margin-bottom:18px;
+
+      letter-spacing:-0.6px;
+    }
+
+    /* ACTION CARDS */
+
+    .action-card{
+
+      background:
+        rgba(255,255,255,0.92);
+
+      border-radius:24px;
+
+      padding:20px;
+
+      margin-bottom:14px;
+
       display:flex;
+
+      align-items:center;
+
+      cursor:pointer;
+
+      transition:0.25s;
+
+      border:
+        1px solid rgba(255,255,255,0.7);
+
+      box-shadow:
+        0 8px 22px rgba(0,0,0,0.05);
+    }
+
+    .action-card:hover{
+      transform:translateY(-2px);
+    }
+
+    .action-card:active{
+      transform:scale(0.98);
+    }
+
+    .action-left{
+
+      display:flex;
+
+      align-items:center;
+
+      gap:14px;
+
+      font-size:18px;
+
+      font-weight:600;
+    }
+
+    .small-logo{
+
+      width:42px;
+
+      height:42px;
+
+      border-radius:50%;
+
+      object-fit:cover;
+    }
+
+    /* BOTTOM NAV */
+
+    .bottom-bar{
+
+      position:fixed;
+
+      left:50%;
+
+      bottom:18px;
+
+      transform:translateX(-50%);
+
+      width:94%;
+
+      background:
+        rgba(255,255,255,0.72);
+
+      backdrop-filter:blur(28px);
+
+      border-radius:34px;
+
+      display:flex;
+
       justify-content:space-around;
-      padding:14px 0 10px;
+
+      padding:
+        16px
+        10px
+        calc(12px + env(safe-area-inset-bottom));
+
       z-index:999;
+
+      border:
+        1px solid rgba(255,255,255,0.75);
+
+      box-shadow:
+        0 14px 40px rgba(0,0,0,0.08);
     }
 
     .bottom-item{
+
       text-align:center;
+
       cursor:pointer;
+
       font-size:13px;
-      font-weight:500;
+
+      font-weight:600;
+
+      transition:0.2s;
+    }
+
+    .bottom-item:hover{
+      transform:translateY(-2px);
     }
 
     .bottom-item .emoji{
-      font-size:20px;
-      margin-bottom:4px;
+
       display:block;
+
+      font-size:22px;
+
+      margin-bottom:6px;
+    }
+
+    /* DARK MODE */
+
+    body.dark{
+
+      background:
+        linear-gradient(
+          180deg,
+          #111827 0%,
+          #18212e 100%
+        );
+
+      color:white;
+    }
+
+    body.dark .section,
+    body.dark .services-section,
+    body.dark .docs-section,
+    body.dark .bulletin-box{
+
+      background:
+        rgba(30,41,59,0.72);
+
+      border:
+        1px solid rgba(255,255,255,0.06);
+    }
+
+    body.dark .card,
+    body.dark .action-card,
+    body.dark .bulletin-item,
+    body.dark .bottom-bar{
+
+      background:
+        rgba(31,41,55,0.82);
+
+      color:white;
+    }
+
+    body.dark .card small,
+    body.dark .location,
+    body.dark .bottom-item{
+      color:white;
     }
 
     /* MOBILE */
-    @media(max-width:900px){
+
+    @media(max-width:960px){
 
       .main-layout{
         flex-direction:column;
@@ -263,83 +554,92 @@
       .right-bulletin{
         width:100%;
       }
+    }
+
+    @media(max-width:700px){
 
       .grid,
       .docs-grid{
         grid-template-columns:repeat(2,1fr);
       }
-    }
-
-    @media(max-width:560px){
 
       .title{
         font-size:20px;
       }
 
       .logo{
-        width:60px;
-        height:60px;
-      }
-
-      .grid,
-      .docs-grid{
-        grid-template-columns:1fr 1fr;
+        width:62px;
+        height:62px;
       }
 
       .section-title{
-        font-size:22px;
+        font-size:28px;
+      }
+    }
+
+    @media(max-width:480px){
+
+      .main-layout{
+        padding:16px;
       }
 
       .card{
-        min-height:84px;
+        min-height:96px;
+      }
+
+      .card .icon{
+        font-size:24px;
+      }
+
+      .action-left{
+        font-size:16px;
+      }
+
+      .section-title{
+        font-size:26px;
       }
     }
 
-    /* DARK MODE */
-    body.dark{
-      background:#111;
-    }
-
-    body.dark .section,
-    body.dark .section-title,
-    body.dark .action-wrapper,
-    body.dark .doc-section,
-    body.dark .bottom-bar{
-      background:#1c1c1c;
-      color:white;
-    }
-
-    body.dark .card,
-    body.dark .action-card,
-    body.dark .bulletin-box{
-      background:#262626;
-      color:white;
-    }
   </style>
+
 </head>
 
 <body>
 
   <!-- HEADER -->
+
   <div class="header">
+
     <div class="logo-wrap">
+
       <img src="utkalgreenexlogi.png" class="logo">
-      <div class="title">Utkal Greenex Directory</div>
+
+      <div class="title">
+        Utkal Greenex Directory
+      </div>
+
     </div>
 
-    <button class="theme-btn" onclick="toggleDark()">🌙</button>
+    <button class="theme-btn" onclick="toggleDark()">
+      🌙
+    </button>
+
   </div>
 
   <!-- MAIN -->
+
   <div class="main-layout">
 
     <!-- LEFT -->
+
     <div class="left-content">
+
+      <!-- GRID SECTION -->
 
       <div class="section">
 
         <div class="location">
-          📍 Utkal Greenex,Sunderpada,Bhubaneswar
+          📍 Utkal Greenex, Sunderpada, Bhubaneswar
         </div>
 
         <div class="grid">
@@ -370,7 +670,7 @@
           </div>
 
           <div class="card" onclick="searchPlaces('restaurant')">
-            <div class="icon">🍽</div>
+            <div class="icon">🍽️</div>
             <small>Food</small>
           </div>
 
@@ -393,79 +693,104 @@
 
       </div>
 
+      <!-- SERVICES -->
+
+      <div class="services-section">
+
+        <div class="section-title">
+          📢 Society Services
+        </div>
+
+        <div class="action-card" onclick="openOhhPro()">
+
+          <div class="action-left">
+
+            <img src="ohhpro.png" class="small-logo">
+
+            <div>OhhPro Junction</div>
+
+          </div>
+
+        </div>
+
+        <div class="action-card" onclick="openWhatsApp()">
+
+          <div class="action-left">
+            💬 WhatsApp Group
+          </div>
+
+        </div>
+
+        <div class="action-card" onclick="openSuggestion()">
+
+          <div class="action-left">
+            💡 Suggest Improvement
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- DOCUMENTS -->
+
+      <div class="docs-section">
+
+        <div class="section-title">
+          📄 Documents
+        </div>
+
+        <div class="docs-grid">
+
+          <div class="card" onclick="openDoc('docs/bylaws/bylaws.pdf')">
+
+            <div class="icon">📜</div>
+
+            <small>Bylaws</small>
+
+          </div>
+
+          <div class="card" onclick="openDoc('docs/bylaws/meetings/2026-may.pdf')">
+
+            <div class="icon">📝</div>
+
+            <small>Latest MoM</small>
+
+          </div>
+
+          <div class="card" onclick="openDoc('docs/bylaws/meetings/2026-may.pdf')">
+
+            <div class="icon">📋</div>
+
+            <small>Notice</small>
+
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
 
-    <!-- RIGHT -->
+    <!-- RIGHT BULLETIN -->
+
     <div class="right-bulletin">
 
       <div class="bulletin-box">
-        <div class="bulletin-title">🔔 Updates</div>
+
+        <div class="bulletin-title">
+          🔔 Updates
+        </div>
 
         <div id="updatesBox"></div>
+
       </div>
 
     </div>
 
-  </div>
-
-  <!-- SERVICES -->
-  <div class="section-title">📢 Society Services</div>
-
-  <div class="action-wrapper">
-
-    <div class="action-card" onclick="openOhhPro()">
-      <div class="action-left">
-        <img src="ohhpro.png" class="small-logo">
-        <div>OhhPro Junction</div>
-      </div>
-    </div>
-
-    <div class="action-card" onclick="openWhatsApp()">
-      <div class="action-left">
-        💬 WhatsApp Group
-      </div>
-    </div>
-
-    <div class="action-card" onclick="openSuggestion()">
-      <div class="action-left">
-        💡 Suggest Improvement
-      </div>
-    </div>
-
-  </div>
-
-  <!-- DOCUMENTS -->
-  <div class="doc-section">
-
-    <div class="section-title">📄 Documents</div>
-
-    <div class="docs-grid">
-
-      <div class="card" onclick="openDoc('docs/bylaws/bylaws.pdf')">
-        <div class="icon">📜</div>
-        <small>Bylaws</small>
-      </div>
-
-      <div class="card" onclick="openDoc('docs/bylaws/meetings/2026-may.pdf')">
-        <div class="icon">📝</div>
-        <small>Latest MoM</small>
-      </div>
-
-      <div class="card" onclick="openDoc('docs/bylaws/meetings/2026-may.pdf')">
-        <div class="icon">📝</div>
-        <small>Notice</small>
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- INSTALL -->
-  <div class="install-card" onclick="installApp()">
-    📲 Install App
   </div>
 
   <!-- BOTTOM NAV -->
+
   <div class="bottom-bar">
 
     <div class="bottom-item" onclick="openApp('uber')">
@@ -498,8 +823,11 @@
   <script>
 
     /* LOAD UPDATES */
+
     fetch("updates.json")
+
       .then(res => res.json())
+
       .then(data => {
 
         const box = document.getElementById("updatesBox");
@@ -509,6 +837,10 @@
           const div = document.createElement("div");
 
           div.className = "bulletin-item";
+
+          div.style.background = item.bg;
+
+          div.style.color = item.color;
 
           div.innerHTML = `
             ${item.icon} <strong>${item.title}</strong><br>
@@ -521,33 +853,9 @@
 
       });
 
-    /* INSTALL APP */
-    let deferredPrompt;
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-    });
-
-    function installApp() {
-
-      if (deferredPrompt) {
-
-        deferredPrompt.prompt();
-
-        deferredPrompt.userChoice.then(() => {
-          deferredPrompt = null;
-        });
-
-      } else {
-
-        alert("Install option not available yet.");
-
-      }
-    }
-
     /* SEARCH */
-    function searchPlaces(type) {
+
+    function searchPlaces(type){
 
       window.open(
         `https://www.google.com/maps/@20.2469,85.8189,17z/search/${encodeURIComponent(type)}`
@@ -556,33 +864,66 @@
     }
 
     /* LOCATION */
+
     function openLocation(){
-      window.open("https://maps.app.goo.gl/urxJ4ayd5iEdCkiS9");
+
+      window.open(
+        "https://maps.app.goo.gl/urxJ4ayd5iEdCkiS9"
+      );
+
     }
 
     /* DOCS */
+
     function openDoc(path){
-      window.open(path, "_blank");
+
+      window.open(path,"_blank");
+
     }
 
-    /* APP LINKS */
+    /* OPEN APPS */
+
     function openApp(type){
 
       const map = {
 
-        uber:["uber://","https://m.uber.com"],
-        ola:["olacabs://","https://book.olacabs.com"],
-        swiggy:["swiggy://","https://www.swiggy.com"],
-        zomato:["zomato://","https://www.zomato.com"],
-        blinkit:["blinkit://","https://blinkit.com"],
-        ohhpro:["ohhpro://","https://apps.apple.com/se/app/ohhpro-junction/id1596785670"]
+        uber:[
+          "uber://",
+          "https://m.uber.com"
+        ],
 
+        ola:[
+          "olacabs://",
+          "https://book.olacabs.com"
+        ],
+
+        swiggy:[
+          "swiggy://",
+          "https://www.swiggy.com"
+        ],
+
+        zomato:[
+          "zomato://",
+          "https://www.zomato.com"
+        ],
+
+        blinkit:[
+          "blinkit://",
+          "https://blinkit.com"
+        ],
+
+        ohhpro:[
+          "ohhpro://",
+          "https://apps.apple.com/se/app/ohhpro-junction/id1596785670"
+        ]
       };
 
       const [scheme,fallback] = map[type];
 
       const iframe = document.createElement("iframe");
+
       iframe.style.display = "none";
+
       iframe.src = scheme;
 
       document.body.appendChild(iframe);
@@ -590,18 +931,26 @@
       setTimeout(()=>{
 
         if(!document.hidden){
+
           window.location.href = fallback;
+
         }
 
-      },1500);
+      },1200);
     }
 
+    /* SERVICES */
+
     function openOhhPro(){
+
       openApp("ohhpro");
+
     }
 
     function openWhatsApp(){
-      window.location.href="https://wa.me/";
+
+      window.location.href = "https://wa.me/";
+
     }
 
     function openSuggestion(){
@@ -613,13 +962,19 @@
     }
 
     /* DARK MODE */
+
     function toggleDark(){
+
       document.body.classList.toggle("dark");
+
     }
 
     /* SERVICE WORKER */
-    if ('serviceWorker' in navigator) {
+
+    if('serviceWorker' in navigator){
+
       navigator.serviceWorker.register('service-worker.js');
+
     }
 
   </script>
