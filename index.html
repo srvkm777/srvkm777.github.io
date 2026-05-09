@@ -243,6 +243,11 @@ function toggleDark(){
   document.body.classList.toggle("dark");
 }
 
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js');
+}
+
 </script>
 
 <!-- ✅ FULL APP NAV RESTORED -->
