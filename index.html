@@ -226,11 +226,17 @@ function installApp() {
 }
   
 /* ✅ BETTER MAP SEARCH (MULTIPLE RESULTS) */
-function searchPlaces(type){
-  const lat = 20.2469;
-  const lon = 85.8189;
-  window.open(`https://www.google.com/maps/search/${type}/@${lat},${lon},15z`);
+
+
+
+function searchPlaces(type) {
+  window.open(
+    `https://www.google.com/maps/@20.2469,85.8189,17z/search/${encodeURIComponent(type)}`
+  );
 }
+
+
+
 
 /* ✅ OPEN LOCATION */
 function openLocation(){
