@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+  
+<div class="action-card" onclick="installApp()">
+  <div class="action-left">
+    📲 Install App
+  </div>
+</div>
+
   
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#2e7d5b"> 
@@ -190,6 +198,33 @@
 
 <script>
 
+/*Insstall app*/
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  console.log("✅ Install event captured");
+});
+
+function installApp() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+
+    deferredPrompt.userChoice.then((choice) => {
+      if (choice.outcome === 'accepted') {
+        console.log('✅ User installed');
+      } else {
+        console.log('❌ User dismissed');
+      }
+      deferredPrompt = null;
+    });
+
+  } else {
+    alert("Install option not ready. Try refreshing the page.");
+  }
+}
+  
 /* ✅ BETTER MAP SEARCH (MULTIPLE RESULTS) */
 function searchPlaces(type){
   const lat = 20.2469;
@@ -251,6 +286,8 @@ function toggleDark(){
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js');
 }
+
+
 
 </script>
 
