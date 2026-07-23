@@ -92,13 +92,28 @@ text-decoration:none;
 color:white;
 }
 
+.background-glow{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(79,140,255,.25), transparent 30%),
+      radial-gradient(circle at 80% 30%, rgba(200,108,255,.25), transparent 30%),
+      radial-gradient(circle at 50% 80%, rgba(0,255,255,.15), transparent 35%);
+}
+
 .hero-right img{
-width:350px;
-height:350px;
-object-fit:cover;
-border-radius:50%;
-border:5px solid #4f8cff;
-box-shadow:0 0 40px #4f8cff;
+    width:380px;
+    height:380px;
+    border-radius:50%;
+    object-fit:cover;
+
+    border:4px solid rgba(255,255,255,.15);
+
+    box-shadow:
+        0 0 20px #4f8cff,
+        0 0 40px #4f8cff,
+        0 0 80px rgba(79,140,255,.5);
 }
 
 .stats{
@@ -108,12 +123,17 @@ grid-template-columns:repeat(4,1fr);
 gap:20px;
 }
 
-.card{
-background:#0b1229;
-padding:30px;
-border-radius:16px;
-text-align:center;
-border:1px solid rgba(255,255,255,.08);
+.card,
+.timeline-item{
+    background:rgba(255,255,255,.03);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:20px;
+
+    transition:.3s;
 }
 
 .card h2{
@@ -121,6 +141,14 @@ font-size:2rem;
 color:#4f8cff;
 }
 
+.card:hover,
+.timeline-item:hover{
+    transform:translateY(-5px);
+
+    box-shadow:
+      0 0 20px rgba(79,140,255,.2),
+      0 0 40px rgba(79,140,255,.15);
+}
 section{
 padding:80px 10%;
 }
