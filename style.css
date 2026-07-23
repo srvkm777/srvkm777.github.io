@@ -58,6 +58,18 @@ font-size:4rem;
 line-height:1.2;
 }
 
+.skill-grid span{
+    background:rgba(79,140,255,.1);
+
+    border:1px solid rgba(79,140,255,.4);
+
+    color:#fff;
+
+    padding:12px 20px;
+
+    border-radius:999px;
+}
+
 .hero h1 span{
 background:linear-gradient(90deg,#4f8cff,#c86cff);
 -webkit-background-clip:text;
@@ -139,6 +151,41 @@ gap:20px;
 .card h2{
 font-size:2rem;
 color:#4f8cff;
+}
+
+.stat-card{
+    text-align:center;
+}
+
+.stat-card h2{
+    font-size:2.5rem;
+    margin-bottom:5px;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+.timeline{
+    border-left:2px solid #4f8cff;
+    padding-left:40px;
+}
+
+.timeline-item{
+    position:relative;
+    margin-bottom:30px;
+}
+
+.timeline-item::before{
+    content:'';
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    background:#4f8cff;
+
+    position:absolute;
+    left:-48px;
+    top:10px;
 }
 
 .card:hover,
