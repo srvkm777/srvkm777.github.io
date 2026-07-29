@@ -351,6 +351,7 @@ margin-bottom:40px;
 .card-icon{
 width:60px;
 height:60px;
+flex-shrink:0;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -360,12 +361,15 @@ font-size:1.6rem;
 color:#4f8cff;
 background:rgba(79,140,255,.12);
 border:1px solid rgba(79,140,255,.35);
+overflow:hidden;
 transition:.3s;
 }
 
 .card-icon img{
-width:30px;
-height:30px;
+width:30px !important;
+height:30px !important;
+max-width:30px;
+max-height:30px;
 object-fit:contain;
 transition:.3s;
 }
