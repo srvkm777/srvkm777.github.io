@@ -4,9 +4,6 @@
 <head>
     <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <i class="fab fa-linkedin"></i>
-<i class="fab fa-github"></i>
-<i class="fas fa-envelope"></i>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sourav Kar Mohapatra</title>
@@ -34,10 +31,8 @@ content="assets/profile.jpg">
 <header>
     <nav>
         <div class="logo">SKM</div>
-      
-        <script src="script.js"></script>
 
-        <ul>
+        <ul id="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#journey">Journey</a></li>
@@ -45,6 +40,12 @@ content="assets/profile.jpg">
             <li><a href="#projects">Projects</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
+
+        <button id="nav-toggle" aria-label="Toggle navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </nav>
 </header>
 
@@ -52,9 +53,11 @@ content="assets/profile.jpg">
 
     <div class="hero-left">
 
+        <p class="eyebrow">👋 Hi, I'm Sourav</p>
+
         <h1>
             Architecting the Future of
-            <span>Airline Planning IT systems</span>
+            <span id="typing-target"></span><span class="cursor">|</span>
         </h1>
 
         <p>
@@ -75,6 +78,12 @@ content="assets/profile.jpg">
 
         </div>
 
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/sourav-kar-mohapatra" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/srvkm777" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="mailto:sourav@karmohapatra.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+
     </div>
 
     <div class="hero-right">
@@ -87,25 +96,27 @@ content="assets/profile.jpg">
 
 <section class="stats">
 
-    <div class="card stat-card">
-    <h2>11+</h2>
+    <div class="card stat-card reveal">
+    <h2 data-count="11">0</h2>
     <p>Years Experience</p>
 </div>
 
-    <div class="card stat-card">
-    <h2>8+</h2>
+    <div class="card stat-card reveal">
+    <h2 data-count="8">0</h2>
     <p>Cloud Projects</p>
 </div>
 
-    <div class="card stat-card">
+    <div class="card stat-card reveal">
     <h2>Multiple</h2>
     <p>Platforms</p>
 </div>
 
-    <div class="card stat-card">
-    <h2>10+</h2>
+    <div class="card stat-card reveal">
+    <h2 data-count="10">0</h2>
     <p>Technologies</p>
 </div>
+
+</section>
 
 <section id="projects">
 
@@ -113,7 +124,7 @@ content="assets/profile.jpg">
 
 <div class="project-grid">
 
-<div class="project-card">
+<div class="project-card reveal">
 <h3>Airline Planning Solutions</h3>
 
 <p>
@@ -123,7 +134,7 @@ rostering systems and operational planning.
 
 </div>
 
-<div class="project-card">
+<div class="project-card reveal">
 <h3>Out of box Reporting</h3>
 
 <p>
@@ -133,7 +144,7 @@ Automation and APIs for business insights.
 
 </div>
 
-<div class="project-card">
+<div class="project-card reveal">
 <h3>AKS Platform Engineering</h3>
 
 <p>
@@ -153,7 +164,7 @@ automation for our department workloads.
 
     <div class="impact-grid">
 
-        <div class="impact-card">
+        <div class="impact-card reveal">
             <h3>Airline Planning Systems</h3>
             <p>
                 Designing and modernizing mission-critical
@@ -161,7 +172,7 @@ automation for our department workloads.
             </p>
         </div>
 
-        <div class="impact-card">
+        <div class="impact-card reveal">
             <h3>Cloud Transformation</h3>
             <p>
                 Led Azure adoption initiatives and cloud-native
@@ -169,7 +180,7 @@ automation for our department workloads.
             </p>
         </div>
 
-        <div class="impact-card">
+        <div class="impact-card reveal">
             <h3>Automation</h3>
             <p>
                 Reduced manual processes through enterprise
@@ -177,7 +188,7 @@ automation for our department workloads.
             </p>
         </div>
 
-        <div class="impact-card">
+        <div class="impact-card reveal">
             <h3>Platform Engineering</h3>
             <p>
                 Built scalable Kubernetes and DevOps platforms
@@ -189,51 +200,41 @@ automation for our department workloads.
 
 </section>
 
-</section>
-
 <section id="journey">
 
     <h2>Career Journey</h2>
 
     <div class="timeline">
 
-        <div class="timeline">
-            <div class="timeline-item">
+        <div class="timeline-item reveal">
             <div class="year">2025 - Present</div>
             <div class="content">
             <h3>Solution Architect</h3>
             <p>SAS Scandinavian Airlines</p>
             </div>
-            </div>
         </div>
 
-        <div class="timeline">
-            <div class="timeline-item">
+        <div class="timeline-item reveal">
             <div class="year">2024 - 2025</div>
             <div class="content">
             <h3>Tech Lead</h3>
             <p>SAS Scandinavian Airlines</p>
             </div>
-            </div>
         </div>
 
-        <div class="timeline">
-            <div class="timeline-item">
+        <div class="timeline-item reveal">
             <div class="year">2022 - 2024</div>
             <div class="content">
             <h3>Site Reliability Engineer</h3>
             <p>Flexera - formerly Snow Software</p>
             </div>
-            </div>
         </div>
 
-        <div class="timeline">
-            <div class="timeline-item">
+        <div class="timeline-item reveal">
             <div class="year">2015 - 2022</div>
             <div class="content">
             <h3>Assistant Consultant</h3>
             <p>Tata Consultancy Services</p>
-            </div>
             </div>
         </div>
 
@@ -251,7 +252,7 @@ automation for our department workloads.
         <span>Rest APIs</span>
         <span>Python/Powershell/Bash</span>
         <span>Kubernetes</span>
-        <span>CI/CD & DevOps</span>
+        <span>CI/CD &amp; DevOps</span>
         <span>Site reliability(Maintaining SLIs and SLOs)</span>
         <span>Terraform</span>
         <span>Observability</span>
@@ -279,9 +280,39 @@ automation for our department workloads.
 
     <h2>Let's Connect</h2>
 
-    <p>Email: sourav@karmohapatra.com</p>
+    <div class="contact-card reveal">
 
-    <p>Stockholm, Sweden</p>
+        <p class="contact-intro">
+            Have a project, opportunity, or just want to talk tech?
+            Reach out — I'd love to hear from you.
+        </p>
+
+        <div class="contact-actions">
+
+            <a href="mailto:sourav@karmohapatra.com" class="btn btn-primary">
+                <i class="fas fa-envelope"></i> Email Me
+            </a>
+
+            <a href="https://se.linkedin.com/in/souravkm" target="_blank" rel="noopener" class="btn btn-secondary">
+                <i class="fab fa-linkedin"></i> Connect on LinkedIn
+            </a>
+
+        </div>
+
+        <div class="contact-details">
+
+            <p><i class="fas fa-envelope"></i> <a href="mailto:sourav@karmohapatra.com">sourav@karmohapatra.com</a></p>
+
+            <p><i class="fas fa-location-dot"></i> Stockholm, Sweden</p>
+
+        </div>
+
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/sourav-kar-mohapatra" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/srvkm777" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        </div>
+
+    </div>
 
 </section>
 
@@ -289,6 +320,11 @@ automation for our department workloads.
     © 2026 Sourav Kar Mohapatra
 </footer>
 
+<button id="back-to-top" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<div class="background-glow"></div>
+<script src="script.js"></script>
 </body>
-    <div class="background-glow"></div>
 </html>
